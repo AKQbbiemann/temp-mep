@@ -1,0 +1,27 @@
+/* assets/css/components/logo.scss */
+
+.logo-container {
+  @apply relative inline-block w-full h-[50px] place-content-center place-items-center self-center text-center items-center place-self-center;
+}
+
+.logo-icon,
+.full-logo {
+  @apply absolute top-0 left-0 w-full h-full;
+  transition: opacity 0.5s ease;
+}
+
+.logo-icon {
+  @apply p-2 w-[50px] h-full inline-block relative top-2;
+}
+
+.full-logo {
+  @apply opacity-0 px-1;
+}
+
+.logo-container:hover .full-logo {
+  @apply opacity-100;
+}
+
+.logo-container:hover .logo-icon {
+  @apply opacity-0;
+}

@@ -1,0 +1,85 @@
+@import "vue-cal/dist/vuecal.css";
+@import "./components/vue-cal";
+@import "./components/aside";
+@import "./components/logo";
+@import "./components/loader";
+@import "./components/v-calendar";
+
+body {
+  @apply dark:bg-gray-900 bg-white;
+}
+
+.icon {
+  @apply text-akq-green  bg-akq-green-50;
+}
+
+.sub-container {
+  @apply p-6 bg-white dark:bg-gray-800 rounded shadow;
+}
+
+.sub-container-gray {
+  @apply p-6 bg-zinc-100 dark:bg-gray-800 rounded-large shadow;
+}
+.icon.icon-edit {
+  @apply text-akq-green bg-transparent cursor-pointer;
+}
+.icon.icon-delete {
+  @apply text-red-500 bg-transparent cursor-pointer;
+}
+.sub-nav {
+  nav {
+    button {
+      @apply text-akq-green;
+    }
+    button::before:hover {
+      @apply bg-akq-green-50 rounded;
+    }
+    button:hover {
+      @apply text-gray-800;
+    }
+    .after\:bg-akq-green-500::after {
+      @apply bg-akq-green;
+    }
+  }
+}
+.rounded-input {
+  input {
+    @apply rounded focus:ring-akq-green;
+  }
+  textarea {
+    @apply rounded;
+  }
+  button {
+    @apply rounded;
+  }
+}
+
+.exact-active {
+  @apply text-akq-green font-bold;
+}
+
+.skill-list {
+  .divide-y > :not([hidden]) ~ :not([hidden]) {
+    @apply border-t-0 border-none;
+  }
+  @apply border-t-0 border-none;
+}
+
+.cloud-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.1;
+  .cloud {
+    box-sizing: border-box;
+    display: inline-block;
+    transform-origin: 0 0;
+    scale: 9;
+    z-index: -1;
+  }
+}
+
+.small-padding {
+  @apply p-2 rounded;
+}

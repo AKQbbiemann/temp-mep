@@ -1,0 +1,8 @@
+# Default values for spring-boot-example.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+env:
+  APP_KEY: "base64:xu2FRYIXb/9xK8Je+RvZD2tkwjUVYMGqnJPRMHaZ1As="
+
+  KEYCLOAK_CLIENT_ID: "serviceportal"

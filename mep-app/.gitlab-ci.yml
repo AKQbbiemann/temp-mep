@@ -1,0 +1,18 @@
+---
+variables:
+  CONTAINER_RELEASE_IMAGE: harbor.team41.oss.msvc.akqui.net/akqoss/serviceportal-application
+  CI_PROJECT_DIR: .
+  CHART: ./chart
+
+include:
+  - project: 'automation/gitlab-cicd-sharedpipelines'
+    ref: 'v3.8.3'
+    file: 'akq/gitlab-k8s-releasing.yml'
+  - project: 'automation/gitlab-cicd-sharedpipelines'
+    ref: 'v3.8.3'
+    file: 'akq/akq-k8s-docker.yml'
+
+stages:
+  - test
+  - build
+  - gitlab-releasing

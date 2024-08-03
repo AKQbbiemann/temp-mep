@@ -1,0 +1,18 @@
+/* assets/css/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .aspect-square {
+        aspect-ratio: 1 / 1;
+    }
+
+    .aspect-story {
+        aspect-ratio: 9 / 16;
+    }
+
+    .text-current {
+        color: currentColor;
+    }
+}

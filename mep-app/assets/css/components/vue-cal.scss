@@ -1,0 +1,85 @@
+.vuecal {
+  @apply h-[90vh];
+}
+
+.vuecal__menu,
+.vuecal__cell-events-count {
+  @apply bg-akq-green;
+}
+.vuecal__title-bar {
+  @apply bg-[#e4f5ef];
+}
+.vuecal__cell--today,
+.vuecal__cell--current {
+  @apply bg-[#f0f0ff66];
+}
+.vuecal:not(.vuecal--day-view) .vuecal__cell--selected {
+  @apply bg-[#ebfff566];
+}
+
+.vuecal__cell--highlighted:not(.vuecal__cell--has-splits),
+.vuecal__cell-split--highlighted {
+  @apply bg-[#c3ffe180];
+}
+.vuecal__arrow.vuecal__arrow--highlighted,
+.vuecal__view-btn.vuecal__view-btn--highlighted {
+  @apply bg-akq-green;
+}
+
+/* .vuecal__time-cell-label {
+    @apply hidden
+} */
+
+.vuecal__view-btn {
+  @apply text-white;
+}
+
+.vuecal__view-btn.vuecal__view-btn--active {
+  @apply text-white;
+}
+
+.vuecal__event-time {
+  @apply hidden;
+}
+
+.vuecal__flex .vuecal__title {
+  @apply dark:text-black;
+}
+
+.vuecal__flex .weekday-label {
+  @apply dark:text-black;
+}
+
+.vuecal__today-btn {
+  @apply dark:text-black;
+}
+
+.vuecal__arrow i.angle {
+  @apply dark:text-black;
+}
+
+.vuecal__flex .vuecal__menu {
+  @apply rounded-t;
+}
+
+.vuecal__flex
+  .vuecal
+  .vuecal--week-view
+  .vuecal--en
+  .vuecal--view-with-time
+  .vuecal--events-on-month-view {
+  @apply rounded-t;
+}
+
+.vuecal__flex
+  .vuecal
+  .vuecal--week-view
+  .vuecal--de
+  .vuecal--view-with-time
+  .vuecal--events-on-month-view {
+  @apply rounded-t;
+}
+
+.vuecal__header {
+  @apply rounded-t;
+}

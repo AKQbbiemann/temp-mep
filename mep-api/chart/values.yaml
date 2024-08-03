@@ -1,0 +1,74 @@
+# Default values for spring-boot-example.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image: harbor.team41.oss.msvc.akqui.net/akqoss-helm/mep
+
+imageConfig:
+    pullPolicy: IfNotPresent
+
+service:
+  port:
+    port: 80
+
+externalSecret:
+  enabled: false
+
+postgresql:
+  enabled: true
+  name: "mep"
+  teamId: "ai"
+  databaseName: "mep"
+  databaseApplicationUsername: "mep-user"
+
+dbmigrate:
+  enabled: false # For production set this to true!
+  sleep: 45
+  useSchedule: true
+  seedDatabase: true
+  migrateSettings: true
+
+env:
+  DB_HOST: "{{ tpl .Values.postgresql.teamId . }}-{{ tpl .Values.postgresql.name . }} "
+  DB_DATABASE: "mep"
+
+  TZ: "Europe/Berlin"
+
+  #SESSION_SECURE_COOKIE: "true"
+
+  APP_DEBUG: "true"
+  APP_LOCAL: "true"
+
+  LOG_CHANNEL: "stdout"
+
+  KEYCLOAK_REDIRECT_URI: "http://127.0.0.1:8080/auth/callback"
+  KEYCLOAK_BASE_URL: "https://keycloak.team41.oss.msvc.akqui.net/auth"
+  KEYCLOAK_REALM: "team41-services"
+  keycloak_metadata_url: "https://keycloak.team41.oss.msvc.akqui.net/auth/realms/team41-services/.well-known/openid-configuration"
+
+
+envComplex: |
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "mep-user.{{ tpl .Values.postgresql.teamId . }}-{{ tpl .Values.postgresql.name . }}.credentials.postgresql.acid.zalan.do"
+        key: password
+  - name: DB_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: "mep-user.{{ tpl .Values.postgresql.teamId . }}-{{ tpl .Values.postgresql.name . }}.credentials.postgresql.acid.zalan.do"
+        key: username
+
+ingress:
+  enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: cluster-issuer-staging
+  labels: {}
+  hosts:
+    - host: mep.team41dev.oss.msvc.akqui.net
+      paths:
+        - path: /
+  tls:
+    - secretName: mep-tls
+      hosts:
+        - mep.team41dev.oss.msvc.akqui.net

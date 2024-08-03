@@ -1,0 +1,37 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+build:
+  artifacts:
+    - image: harbor.team41.oss.msvc.akqui.net/akqoss-helm/mep
+      sync:
+        manual:
+          # sync files to the webserver
+          - src: '**/**'
+            dest: /var/www/html
+  tagPolicy:
+    gitCommit: {}
+  local:
+    useDockerCLI: false
+    useBuildkit: false
+    push: false
+deploy:
+  helm:
+    releases:
+      - name: mep
+        # Get the latest Version: https://gitlab.akquinet.de/kubernetes1/helm/laravel-application/-/tags
+        remoteChart: oci://harbor.team41.oss.msvc.akqui.net/akqoss-helm/laravel-application
+        # Update me if possible
+        version: v1.5.3
+        upgradeOnChange: true
+        valuesFiles:
+          - "chart/values.yaml"
+          - "chart/values-local.yaml"
+        setValueTemplates:
+          env.KEYCLOAK_CLIENT_SECRET: "{{.KEYCLOAK_CLIENT_SECRET}}"
+
+portForward:
+- resourceType: service
+  resourceName: mep-laravel-application
+  namespace: mep
+  port: 80
+  localPort: 8080

@@ -117,23 +117,33 @@ export const useClustersStore = defineStore("clusters", {
     },
     async addOrEditFTEChanges(
       profile_id,
-      start_date,
-      end_date,
-      change,
-      reason,
+      clusterId,
+      state,
       employee_change_id
     ) {
       const appToast = useAppToast();
-      const localeRoute = useLocaleRoute();
-      const body = { profile_id, start_date, end_date, change, reason };
+      const body = {
+        profile_id,
+        start_date: state.start_date,
+        end_date: state.end_date,
+        change: state.change,
+        reason: state.reason,
+        comprehensive_load: state.comprehensive_load,
+        base_load: state.base_load,
+        organisation_load: state.organisation_load,
+        local_load: state.local_load,
+      };
       if (employee_change_id) {
         body.employee_change_id = employee_change_id;
       }
       try {
-        const data = await useCustomFetch(`/clusters/profiles/employees`, {
-          method: "POST",
-          body: body,
-        });
+        await useCustomFetch(
+          `/clusters/${clusterId}/profiles/${profile_id}/changes`,
+          {
+            method: "POST",
+            body: body,
+          }
+        );
         appToast.toastSuccess({
           title: employee_change_id
             ? "EDIT_FTE_CHANGE_SUCCESS"

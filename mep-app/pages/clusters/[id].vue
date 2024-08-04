@@ -272,7 +272,7 @@ async function updateCompetences() {
                           />
                         </div>
                       </div>
-                      <div class="w-46 self-center flex justify-center">
+                      <div class="self-center flex justify-center w-full">
                         <UCarousel
                           v-slot="{ item }"
                           :items="[
@@ -286,23 +286,15 @@ async function updateCompetences() {
                             },
                           ]"
                           :ui="{
-                            item: 'basis-full',
-                            container: 'rounded-lg ',
+                            wrapper: 'w-full',
+                            item: 'w-full',
+                            container: 'rounded-lg flex flex-col w-full',
                           }"
-                          :prev-button="{
-                            color: 'gray',
-                            icon: 'i-heroicons-arrow-left-20-solid',
-                            class: '-left-4',
-                          }"
-                          :next-button="{
-                            color: 'gray',
-                            icon: 'i-heroicons-arrow-right-20-solid',
-                            class: '-right-4',
-                          }"
-                          arrows
                         >
                           <div v-if="Object.keys(item)[0] === 'loadProfile'">
-                            <div class="flex justify-start align-middle pt-10">
+                            <div
+                              class="flex justify-start align-middle pt-10 pl-4"
+                            >
                               <div v-if="isLoadingCompetences">
                                 <cluster-list-skeleton />
                               </div>
@@ -319,7 +311,7 @@ async function updateCompetences() {
                                 "
                               ></competence-chart>
 
-                              <div class="">
+                              <div class="pl-2">
                                 <load-profile-competence
                                   @newCompetence="
                                     attachCompetence(
@@ -358,7 +350,7 @@ async function updateCompetences() {
                               </div>
                             </div>
                           </div>
-                          <div v-else class="">
+                          <div v-else class="border-t-2 mt-12 w-full">
                             <div
                               class="flex justify-start align-middle pt-10 px-6 w-full"
                             >

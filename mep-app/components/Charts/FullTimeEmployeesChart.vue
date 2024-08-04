@@ -111,7 +111,7 @@ const chartOptions = ref({
 </script>
 ‚
 <template>
-  <div class="h-[300px] w-[400px]" v-if="!isLoading">
+  <div class="h-[300px] w-[300px]" v-if="!isLoading">
     <Line :data="data" :options="chartOptions" />
   </div>
 </template>

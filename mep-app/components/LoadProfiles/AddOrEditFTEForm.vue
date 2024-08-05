@@ -90,11 +90,12 @@ async function onSubmit(event) {
 </script>
 
 <template>
-  <div class=" ">
+  <div>
     <UCard
       :ui="{
         ring: '',
         divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        rounded: 'rounded',
       }"
     >
       <template #header>

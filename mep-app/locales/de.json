@@ -268,5 +268,17 @@
   "SELECT_STATE": " Status auswählen",
   "SELECT_PRIORITY": "Priorität auswählen",
   "NO_ITEMS": "Es gibt keine Ergebnisse ",
-  "ALL": "Alle"
+  "ALL": "Alle",
+  "GET_CLUSTERS_LOAD_PROFILE_ERROR": "Beim Laden der Clusterbeteiligung ist ein Fehler aufgetreten",
+  "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS": "Erfolgreich gelöscht",
+  "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS_DESCRIPTION": "Die Clusterbeteiligung wurde erfolgreich gelöscht",
+  "DELETE_CLUSTERS_LOAD_PROFILE_ERROR": "Fehler beim Löschen der Clusterbeteiligung",
+  "EDIT_FTE_CHANGE_SUCCESS": "Erfolgreich bearbeitet",
+  "ADD_FTE_CHANGE_SUCCESS": "Erfolgreich hinzugefügt",
+  "EDIT_FTE_CHANGE_SUCCESS_DESCRIPTION": "Die Veränderung wurde erfolgreich bearbeitet",
+  "ADD_FTE_CHANGE_SUCCESS_DESCRIPTION": "Die Veränderung wurde erfolgreich hinzugefügt",
+  "EDIT_FTE_CHANGE_ERROR": "Fehler beim Bearbeiten der Veränderung",
+  "ADD_FTE_CHANGE_ERROR": "Fehler beim Hinzufügen der Veränderung",
+  "EDIT_FTE_CHANGE_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut",
+  "ADD_FTE_CHANGE_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut"
 }

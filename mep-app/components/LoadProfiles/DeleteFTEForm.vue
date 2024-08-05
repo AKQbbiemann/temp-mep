@@ -21,7 +21,11 @@ async function deleteChange() {
 </script>
 <template>
   <UCard
-    :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }"
+    :ui="{
+      ring: '',
+      divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+      rounded: 'rounded',
+    }"
   >
     <template #header>
       <div class="flex items-center justify-between">

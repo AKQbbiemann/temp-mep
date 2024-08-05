@@ -221,6 +221,7 @@ async function getDropdownLists() {
         base: 'divide-y divide-gray-200 dark:divide-gray-700',
       },
       footer: { padding: 'p-4' },
+      rounded: 'rounded',
     }"
   >
     <div v-if="isLoading">loading</div>

@@ -314,30 +314,22 @@ function removeClusterFromParticipation() {
         </UFormGroup>
 
         <UModal v-model="isOpen">
-          <div class="p-4 bg-akq-green-50">
-            <AddClusterParticipationModal
-              :id="clusterParticipationId"
-              :participation="participation"
-              @isOpen="isOpen = $event"
-              @addClusterParticipation="addCluster($event)"
-              @updateClusterParticipation="updateCluster($event)"
-              @updateClusterParticipationsView="
-                updateClusterParticipationsView()
-              "
-            />
-          </div>
+          <AddClusterParticipationModal
+            :id="clusterParticipationId"
+            :participation="participation"
+            @isOpen="isOpen = $event"
+            @addClusterParticipation="addCluster($event)"
+            @updateClusterParticipation="updateCluster($event)"
+            @updateClusterParticipationsView="updateClusterParticipationsView()"
+          />
         </UModal>
         <UModal v-model="isOpenDeleteParticipation">
-          <div class="p-4 bg-akq-green-50">
-            <DeleteClusterParticipationModal
-              :id="clusterParticipationId"
-              @isOpen="isOpenDeleteParticipation = $event"
-              @removeClusterFromParticipation="removeClusterFromParticipation()"
-              @updateClusterParticipationsView="
-                updateClusterParticipationsView()
-              "
-            />
-          </div>
+          <DeleteClusterParticipationModal
+            :id="clusterParticipationId"
+            @isOpen="isOpenDeleteParticipation = $event"
+            @removeClusterFromParticipation="removeClusterFromParticipation()"
+            @updateClusterParticipationsView="updateClusterParticipationsView()"
+          />
         </UModal>
       </div>
       <div>

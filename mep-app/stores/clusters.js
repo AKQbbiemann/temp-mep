@@ -149,8 +149,8 @@ export const useClustersStore = defineStore("clusters", {
             ? "EDIT_FTE_CHANGE_SUCCESS"
             : "ADD_FTE_CHANGE_SUCCESS",
           description: employee_change_id
-            ? "EDIT_FTE_CHANGE_DESCRIPTION"
-            : "ADD_FTE_CHANGE_DESCRIPTION",
+            ? "EDIT_FTE_CHANGE_SUCCESS_DESCRIPTION"
+            : "ADD_FTE_CHANGE_SUCCESS_DESCRIPTION",
         });
       } catch (e) {
         console.log(e);
@@ -179,8 +179,8 @@ export const useClustersStore = defineStore("clusters", {
       } catch (e) {
         console.log(e);
         appToast.toastError({
-          title: "GET_CHANGE_ERROR",
-          description: "GET_CHANGE_ERRROR_DESCRIPTION",
+          title: "GET_CLUSTERS_LOAD_PROFILE_ERROR",
+          description: e.message,
         });
       }
     },
@@ -194,14 +194,14 @@ export const useClustersStore = defineStore("clusters", {
           body: { profile_change_id },
         });
         appToast.toastSuccess({
-          title: "DELETE_CHANGE_MSG_SUCCESS",
-          description: "DELETE_CHANGE_MSG_SUCCESS_DESCRIPTION",
+          title: "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS",
+          description: "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS_DESCRIPTION",
         });
       } catch (e) {
         console.log(e);
         appToast.toastError({
-          title: "DELETE_CHANGE_ERROR",
-          description: "DELETE_CHANGE_ERROR_DESCRIPTION",
+          title: "DELETE_CLUSTERS_LOAD_PROFILE_ERROR",
+          description: e.message,
         });
       }
     },

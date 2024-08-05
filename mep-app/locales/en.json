@@ -131,5 +131,17 @@
   "DATE_DETAILS_AND_PRIORITY": "Date details and priority",
   "START_DATE_IS_STRICT": "Start date is strict",
   "END_DATE_IS_STRICT": "End date is strict",
-  "PROBABILITY": "Probability"
+  "PROBABILITY": "Probability",
+  "GET_CLUSTERS_LOAD_PROFILE_ERROR": "Error getting clusters load profile",
+  "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS": "Delete cluster load profile",
+  "DELETE_CLUSTERS_LOAD_PROFILE_MSG_SUCCESS_DESCRIPTION": "Cluster load profile was deleted successfully",
+  "DELETE_CLUSTERS_LOAD_PROFILE_ERROR": "Error deleting cluster load profile",
+  "EDIT_FTE_CHANGE_SUCCESS": "Edit FTE change",
+  "ADD_FTE_CHANGE_SUCCESS": "Add FTE change",
+  "EDIT_FTE_CHANGE_SUCCESS_DESCRIPTION": "FTE change was edited successfully",
+  "ADD_FTE_CHANGE_SUCCESS_DESCRIPTION": "FTE change was added successfully",
+  "EDIT_FTE_CHANGE_ERROR": "Error editing FTE change",
+  "ADD_FTE_CHANGE_ERROR": "Error adding FTE change",
+  "EDIT_FTE_CHANGE_ERROR_DESCRIPTION": "Error editing FTE change",
+  "ADD_FTE_CHANGE_ERROR_DESCRIPTION": "Error adding FTE change"
 }

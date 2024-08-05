@@ -148,13 +148,11 @@ const editLoadProfileChange = (id, profileId) => {
               />
               <template>
                 <div>
-                  <UModal v-model="isOpenDeleteCluster" prevent-close>
-                    <div class="p-4 bg-akq-green-50">
-                      <delete-cluster-modal
-                        :clusterId="id"
-                        @isOpen="isOpenDeleteCluster = $event"
-                      />
-                    </div>
+                  <UModal v-model="isOpenDeleteCluster">
+                    <delete-cluster-modal
+                      :clusterId="id"
+                      @isOpen="isOpenDeleteCluster = $event"
+                    />
                   </UModal>
                 </div>
               </template>
@@ -293,7 +291,7 @@ const editLoadProfileChange = (id, profileId) => {
                           :ui="{
                             wrapper: 'w-full',
                             item: 'w-full',
-                            container: 'rounded-lg flex flex-col w-full',
+                            container: 'rounded-md flex flex-col w-full',
                           }"
                         >
                           <div v-if="Object.keys(item)[0] === 'loadProfile'">
@@ -357,35 +355,35 @@ const editLoadProfileChange = (id, profileId) => {
                           </div>
                           <div v-else class="border-t-2 mt-12 w-full">
                             <div
-                              class="flex justify-start align-middle pt-10 px-6 w-full"
+                              class="flex flex-col justify-start align-middle pt-10 px-6 w-full"
                             >
+                              <UButton
+                                type="button"
+                                color="akq-green"
+                                icon="i-heroicons-plus-circle"
+                                class="justify-center text-base rounded mb-3 break-words ml-2"
+                                :ui="{
+                                  link: 'break-words',
+                                }"
+                                @click="
+                                  isOpenChangeFTE = true;
+                                  changeId = '';
+                                  FTEProfileId =
+                                    item['fullTimeEmployees'].profileId;
+                                  changeId = '';
+                                "
+                              >
+                                <span class="text-wrap truncate">{{
+                                  $t("NEW_CHANGE_FTES")
+                                }}</span>
+                              </UButton>
                               <FullTimeEmployeesChart
                                 :clusterId="id.id"
                                 :profileId="item['fullTimeEmployees'].profileId"
                               ></FullTimeEmployeesChart>
                               <div>
                                 <div v-if="item['fullTimeEmployees'].fte">
-                                  <UButton
-                                    type="button"
-                                    color="akq-green"
-                                    icon="i-heroicons-plus-circle"
-                                    class="justify-center text-base rounded mb-3 break-words ml-2"
-                                    :ui="{
-                                      link: 'break-words',
-                                    }"
-                                    @click="
-                                      isOpenChangeFTE = true;
-                                      changeId = '';
-                                      FTEProfileId =
-                                        item['fullTimeEmployees'].profileId;
-                                      changeId = '';
-                                    "
-                                  >
-                                    <span class="text-wrap truncate">{{
-                                      $t("NEW_CHANGE_FTES")
-                                    }}</span>
-                                  </UButton>
-                                  <div class="grid grid-cols-3 gap-1">
+                                  <div class="grid grid-cols-4 gap-1">
                                     <div
                                       v-for="change in loadProfiles.find(
                                         (profile) =>
@@ -409,7 +407,7 @@ const editLoadProfileChange = (id, profileId) => {
                                             {{
                                               t("CHANGED_TO").concat(
                                                 " : ",
-                                                change.change
+                                                change.change || "---"
                                               )
                                             }}
                                           </div>
@@ -522,46 +520,38 @@ const editLoadProfileChange = (id, profileId) => {
       </div>
       <template>
         <div>
-          <UModal v-model="isOpenDeleteLoadProfile" prevent-close>
-            <div class="p-4 bg-akq-green-50">
-              <delete-load-profile-modal
-                :loadProfileId="loadProfileId"
-                :clusterId="id.id"
-                @isOpen="isOpenDeleteLoadProfile = $event"
-                @updateLoadProfiles="updateCompetences()"
-              />
-            </div>
+          <UModal v-model="isOpenDeleteLoadProfile">
+            <delete-load-profile-modal
+              :loadProfileId="loadProfileId"
+              :clusterId="id.id"
+              @isOpen="isOpenDeleteLoadProfile = $event"
+              @updateLoadProfiles="updateCompetences()"
+            />
           </UModal>
-          <UModal v-model="isOpenDeleteCompetence" prevent-close>
-            <div class="p-4 bg-akq-green-50">
-              <detach-competence-modal
-                :loadProfileId="loadProfileId"
-                :competenceId="competenceId"
-                @isOpen="isOpenDeleteCompetence = $event"
-                @deleteCompetence="deleteCompetence()"
-              ></detach-competence-modal>
-            </div>
+          <UModal v-model="isOpenDeleteCompetence">
+            <detach-competence-modal
+              :loadProfileId="loadProfileId"
+              :competenceId="competenceId"
+              @isOpen="isOpenDeleteCompetence = $event"
+              @deleteCompetence="deleteCompetence()"
+            ></detach-competence-modal>
           </UModal>
 
-          <UModal v-model="isOpenChangeFTE" prevent-close>
-            <div class="p-4 bg-akq-green-50">
-              <AddOrEditFTEForm
-                :profileId="FTEProfileId"
-                :clusterId="id.id"
-                :employeeChangeId="changeId"
-                @isOpen="isOpenChangeFTE = $event"
-                @updateView="updateCompetences()"
-              ></AddOrEditFTEForm>
-            </div>
+          <UModal v-model="isOpenChangeFTE">
+            <AddOrEditFTEForm
+              :profileId="FTEProfileId"
+              :clusterId="id.id"
+              :employeeChangeId="changeId"
+              @isOpen="isOpenChangeFTE = $event"
+              @updateView="updateCompetences()"
+            />
           </UModal>
-          <UModal v-model="isOpenDeleteChange" prevent-close>
-            <div class="p-4 bg-akq-green-50">
-              <DeleteFTEForm
-                :employeeChangeId="changeId"
-                @isOpen="isOpenDeleteChange = $event"
-                @updateView="updateCompetences()"
-              />
-            </div>
+          <UModal v-model="isOpenDeleteChange">
+            <DeleteFTEForm
+              :employeeChangeId="changeId"
+              @isOpen="isOpenDeleteChange = $event"
+              @updateView="updateCompetences()"
+            />
           </UModal>
         </div>
       </template>

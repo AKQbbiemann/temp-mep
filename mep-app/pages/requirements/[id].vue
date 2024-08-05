@@ -108,13 +108,11 @@ function changeStep(event) {
             dynamic
             @click="isOpenDeleteRequirement = true"
           />
-          <UModal v-model="isOpenDeleteRequirement" prevent-close>
-            <div class="p-4 bg-akq-green-50">
-              <delete-requirement-modal
-                :id="id"
-                @isOpen="isOpenDeleteRequirement = $event"
-              ></delete-requirement-modal>
-            </div>
+          <UModal v-model="isOpenDeleteRequirement">
+            <delete-requirement-modal
+              :id="id"
+              @isOpen="isOpenDeleteRequirement = $event"
+            />
           </UModal>
         </div>
       </template>
@@ -346,14 +344,12 @@ function changeStep(event) {
                       </div>
                     </template>
                   </UTabs>
-                  <UModal v-model="isOpenDeletePhase" prevent-close>
-                    <div class="p-4 bg-akq-green-50">
-                      <delete-phase-modal
-                        :id="deletedPhase"
-                        @isOpen="isOpenDeletePhase = $event"
-                        @updateRequirement="getReqirement()"
-                      />
-                    </div>
+                  <UModal v-model="isOpenDeletePhase">
+                    <delete-phase-modal
+                      :id="deletedPhase"
+                      @isOpen="isOpenDeletePhase = $event"
+                      @updateRequirement="getReqirement()"
+                    />
                   </UModal>
                 </div>
               </div>

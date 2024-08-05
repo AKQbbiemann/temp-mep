@@ -37,10 +37,10 @@ export default <Partial<Config>>{
     },
     borderRadius: {
       none: "0",
-      small: "4px",
+      sm: "4px",
+      md: "8px",
       DEFAULT: "10px",
-      medium: "8px",
-      large: "30px",
+      lg: "15px",
       full: "9999px",
     },
     screens: {

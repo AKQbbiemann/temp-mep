@@ -105,13 +105,16 @@ const chartOptions = ref({
       grid: {
         drawOnChartArea: false,
       },
+      ticks: {
+        maxRotation: 1,
+        minRotation: 1,
+      },
     },
   },
 });
 </script>
-‚
 <template>
-  <div class="h-[300px] w-[300px]" v-if="!isLoading">
+  <div class="h-[300px] w-full" v-if="!isLoading">
     <Line :data="data" :options="chartOptions" />
   </div>
 </template>

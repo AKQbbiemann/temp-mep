@@ -194,6 +194,7 @@ console.log(`https://jsonplaceholder.typicode.com/todos${searchStatus.value}`); 
           base: 'divide-y divide-gray-200 dark:divide-gray-700',
         },
         footer: { padding: 'p-4' },
+        rounded: 'rounded',
       }"
     >
       <!-- Filters -->

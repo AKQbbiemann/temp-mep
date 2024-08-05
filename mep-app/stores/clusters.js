@@ -171,7 +171,7 @@ export const useClustersStore = defineStore("clusters", {
             clusterId,
             "/profiles/",
             profileId,
-            "/employees/",
+            "/changes/",
             changeId
           )
         );
@@ -184,14 +184,14 @@ export const useClustersStore = defineStore("clusters", {
         });
       }
     },
-    async deleteChange(employee_change_id) {
+    async deleteChange(profile_change_id) {
       const appToast = useAppToast();
       const localeRoute = useLocaleRoute();
 
       try {
-        const data = await useCustomFetch(`/clusters/profiles/employees`, {
+        await useCustomFetch(`/clusters/profiles/changes/`, {
           method: "DELETE",
-          body: { employee_change_id },
+          body: { profile_change_id },
         });
         appToast.toastSuccess({
           title: "DELETE_CHANGE_MSG_SUCCESS",

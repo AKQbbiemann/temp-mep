@@ -86,7 +86,6 @@ async function updateData() {
     list.value = toRaw(await skillsStore.getskillsList);
     cluster.value = toRaw(await clustersStore.getCluster(id.id));
     loadProfiles.value = cluster.value.load_profiles;
-    console.log(loadProfiles.value);
     tabLoadProfiles = loadProfiles.value.map((item) => {
       let newItem = Object.assign(item, { label: item.name });
       return newItem;
@@ -113,6 +112,12 @@ async function updateCompetences() {
     isLoadingCompetences.value = false;
   }
 }
+
+const editLoadProfileChange = (id, profileId) => {
+  changeId.value = id;
+  FTEProfileId.value = profileId;
+  isOpenChangeFTE.value = true;
+};
 </script>
 
 <template>
@@ -364,7 +369,7 @@ async function updateCompetences() {
                                     type="button"
                                     color="akq-green"
                                     icon="i-heroicons-plus-circle"
-                                    class="justify-center text-base rounded mb-3 break-words"
+                                    class="justify-center text-base rounded mb-3 break-words ml-2"
                                     :ui="{
                                       link: 'break-words',
                                     }"
@@ -380,12 +385,21 @@ async function updateCompetences() {
                                       $t("NEW_CHANGE_FTES")
                                     }}</span>
                                   </UButton>
-                                  <div class="grid grid-cols-2 gap-1">
+                                  <div class="grid grid-cols-3 gap-1">
                                     <div
-                                      v-for="change in item['fullTimeEmployees']
-                                        .employeeChanges"
+                                      v-for="change in loadProfiles.find(
+                                        (profile) =>
+                                          profile.id ===
+                                          item['fullTimeEmployees'].profileId
+                                      ).profile_changes"
                                       :key="change.id"
-                                      class="bg-white p-4 rounded m-2"
+                                      class="bg-white p-4 rounded m-2 cursor-pointer hover:shadow-lg transition duration-300"
+                                      @click="
+                                        editLoadProfileChange(
+                                          change.id,
+                                          item['fullTimeEmployees'].profileId
+                                        )
+                                      "
                                     >
                                       <div class="flex flex-col">
                                         <div>
@@ -443,12 +457,11 @@ async function updateCompetences() {
                                               class="text-akq-green"
                                               dynamic
                                               @click="
-                                                console.log(change.id);
-                                                changeId = change.id;
-                                                FTEProfileId =
+                                                editLoadProfileChange(
+                                                  change.id,
                                                   item['fullTimeEmployees']
-                                                    .profileId;
-                                                isOpenChangeFTE = true;
+                                                    .profileId
+                                                )
                                               "
                                             />
                                             <UDivider orientation="vertical" />
@@ -458,7 +471,7 @@ async function updateCompetences() {
                                               name="i-line-md-document-remove-twotone"
                                               class="text-akq-red"
                                               dynamic
-                                              @click="
+                                              @click.stop="
                                                 changeId = change.id;
                                                 isOpenDeleteChange = true;
                                               "

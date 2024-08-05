@@ -58,6 +58,7 @@ Route::prefix('clusters')->group(function () {
     Route::get('/{clusterId}/profiles/{profileId}', [ClusterController::class, 'loadProfile'])->name('clusters.profile');
     Route::get('/{clusterId}/profiles/{profileId}/chart', [ClusterController::class, 'chartData'])->name('clusters.profiles.chart');
     Route::post('/{clusterId}/profiles/{profileId}/changes', [ClusterController::class, 'createOrUpdateProfileChange'])->name('clusters.profiles.change');
+    Route::get('/{clusterId}/profiles/{profileId}/changes/{changeId}', [ClusterController::class, 'profileChange'])->name('clusters.profiles.change.detail');
     Route::get('/{clusterId}', [ClusterController::class, 'clusterDetail'])->name('cluster');
 });
 

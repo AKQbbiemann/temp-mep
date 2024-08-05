@@ -165,8 +165,9 @@ class ClusterController extends Controller
         ]);
     }
 
+
     /**
-     *  Get cluster details
+     *  Get profile change details
      *
      *  @OA\Get(
      *      path="/api/clusters/{clusterId}",
@@ -514,6 +515,13 @@ class ClusterController extends Controller
         ]);
     }
 
+    public function changeDetail(int $clusterId, int $profileId, int $changeId): JsonResponse {
+
+        return response()->json([
+            'data' => ProfileChange::findOrFail($changeId)
+        ]);
+    }
+
     /**
      *  Delete cluster
      *
@@ -636,8 +644,6 @@ class ClusterController extends Controller
     public function deleteProfileChange(Request $request): JsonResponse
     {
         $change = ProfileChange::findOrFail($request->get('profile_change_id'));
-
-        //TODO: rework
 
         // Wenn der Change schon angefangen hat, aber das Ende noch nicht erreicht hat
         if($change->start_date <= date("Y-m-d") && $change->end_date && $change->end_date > date("Y-m-d")) {

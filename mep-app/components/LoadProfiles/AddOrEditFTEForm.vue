@@ -27,7 +27,7 @@ async function getChange() {
           props.employeeChangeId
         )
       );
-      state.change = data.change;
+      state.fte_change = data.fte_change;
       state.start_date = data.start_date;
       state.end_date = data.end_date;
       state.reason = data.reason;
@@ -47,7 +47,7 @@ const schema = object({
   start_date: date().required(t("THIS_FIELD_IS_REQUIRED")),
   end_date: date().nullable(),
   reason: string().required(t("THIS_FIELD_IS_REQUIRED")),
-  change: number(t("The field must be a number")).test(
+  fte_change: number(t("The field must be a number")).test(
     "is-decimal",
     "The amount should be a decimal with maximum two digits after comma",
     (val) => {
@@ -61,7 +61,7 @@ const schema = object({
 const state = reactive({
   start_date: format(new Date(), "yyyy-MM-dd"),
   end_date: undefined,
-  change: undefined,
+  fte_change: undefined,
   reason: undefined,
   comprehensive_load: undefined,
   base_load: undefined,
@@ -120,9 +120,9 @@ async function onSubmit(event) {
         class="space-y-4 flex flex-col h-full"
         @submit="onSubmit"
       >
-        <UFormGroup :label="t('CHANGE')" name="change">
+        <UFormGroup :label="t('CHANGE')" name="fte_change">
           <UInput
-            v-model="state.change"
+            v-model="state.fte_change"
             class="rounded-input"
             type="number"
             step="0.01"

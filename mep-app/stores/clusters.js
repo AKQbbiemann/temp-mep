@@ -126,7 +126,7 @@ export const useClustersStore = defineStore("clusters", {
         profile_id,
         start_date: state.start_date,
         end_date: state.end_date,
-        change: state.change,
+        fte_change: state.fte_change,
         reason: state.reason,
         comprehensive_load: state.comprehensive_load,
         base_load: state.base_load,

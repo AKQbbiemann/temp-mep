@@ -10,6 +10,10 @@ const emit = defineEmits(["closeDetailsView", "step", "updateRequirement"]);
 const requirementsStore = useRequirementsStore();
 const { t } = useI18n();
 
+const props = defineProps({
+  data: Object,
+});
+
 const isLoading = ref(false);
 const cluster = ref();
 const step = ref(1);
@@ -17,9 +21,11 @@ const typesList = ref();
 const probabilitiesList = ref();
 const statesList = ref();
 const priority = ref();
+const customersList = ref();
 
 onMounted(async () => {
   await getDropdownLists();
+  await getCustomers();
 });
 
 async function getDropdownLists() {
@@ -67,9 +73,17 @@ async function getDropdownLists() {
   }
 }
 
-const props = defineProps({
-  data: Object,
-});
+async function getCustomers() {
+  const customers = await requirementsStore.getCustomers();
+  if (customers) {
+    customersList.value = customers.map((customer) => {
+      return {
+        value: customer.id,
+        label: customer.name,
+      };
+    });
+  }
+}
 
 const schema = object({
   title: string().required(t("THIS_FIELD_IS_REQUIRED")),
@@ -125,7 +139,6 @@ const state = reactive({
     : undefined,
 });
 
-const customers = ["ESA", "customer1", "customer2", "customer3"];
 async function onSubmit(event) {
   if (schema.validateSync(state)) {
     try {
@@ -198,7 +211,7 @@ async function onSubmit(event) {
         <UFormGroup :label="$t('CUSTOMER')" name="customer">
           <USelect
             v-model="state.customer"
-            :options="customers"
+            :options="customersList"
             class="rounded-input"
           />
         </UFormGroup>

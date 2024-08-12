@@ -87,6 +87,21 @@ export const useRequirementsStore = defineStore("requirements", {
         });
       }
     },
+
+    async getCustomers() {
+      console.log("getCustomersdssadasdas");
+      const appToast = useAppToast();
+      try {
+        const { data } = await useCustomFetch("/customers");
+        return data;
+      } catch (e) {
+        appToast.toastError({
+          title: "GET_CUSTOMERS_ERROR",
+          description: "GET_CUSTOMERS_ERROR_DESCRIPTION",
+        });
+      }
+    },
+
     async addOrEdit(requestData, requirement_id) {
       const appToast = useAppToast();
       const localeRoute = useLocaleRoute();

@@ -10,9 +10,9 @@ const isAuthenticated = true;
 
 <template>
   <div class="place-items-center items-center flex gap-3">
-    <ClientOnly>
-      <!--<ColorModeSelector /> -->
-    </ClientOnly>
+    <!-- <ClientOnly>
+      <ColorModeSelector />
+    </ClientOnly> -->
     <!-- <LanguageSwitcher /> -->
 
     <div v-if="!isAuthenticated" class="flex gap-2">

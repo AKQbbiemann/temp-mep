@@ -24,9 +24,9 @@ export default defineNuxtConfig({
       apiVersion: process.env.API_VERSION,
     },
   },
-  colorMode: {
-    classSuffix: "",
-  },
+  // colorMode: {
+  //   classSuffix: "",
+  // },
   css: ["~/assets/css/main.scss", "~/assets/css/tailwind.css"],
   i18n: {
     vueI18n: "./i18n.config.ts",

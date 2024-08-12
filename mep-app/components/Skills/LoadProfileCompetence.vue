@@ -45,8 +45,9 @@ async function getList() {
         type="button"
         color="akq-green"
         icon="i-heroicons-link"
-        class="justify-center text-base rounded mb-3"
+        class="justify-center text-base rounded mb-6"
         rounded
+        block
         :trailing="false"
       />
       <UModal v-model="isOpen">
@@ -60,7 +61,7 @@ async function getList() {
         </div>
       </UModal>
     </div>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-4 gap-3">
       <slot name="competence"></slot>
     </div>
   </div>

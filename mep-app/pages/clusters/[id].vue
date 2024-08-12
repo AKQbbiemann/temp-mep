@@ -118,6 +118,31 @@ const editLoadProfileChange = (id, profileId) => {
   FTEProfileId.value = profileId;
   isOpenChangeFTE.value = true;
 };
+
+const loadItems = (item) => {
+  return [
+    {
+      label: "base_load",
+      percentage: item.base_load,
+      color: "#05806d",
+    },
+    {
+      label: "comprehensive_load",
+      percentage: item.comprehensive_load,
+      color: "#E7324C",
+    },
+    {
+      label: "local_load",
+      percentage: item.local_load,
+      color: "#FFCC00",
+    },
+    {
+      label: "organisation_load",
+      percentage: item.organisation_load,
+      color: "#32A546",
+    },
+  ];
+};
 </script>
 
 <template>
@@ -234,7 +259,7 @@ const editLoadProfileChange = (id, profileId) => {
                   :default-index="loadIndex"
                   @change="getLoadProfile"
                   :ui="{
-                    wrapper: 'pt-10  px-4 flex items-start flex-col gap-4',
+                    wrapper: 'pt-10   flex items-start flex-col gap-4',
                     list: {
                       base: '',
                       width: 'w-48',
@@ -294,15 +319,60 @@ const editLoadProfileChange = (id, profileId) => {
                             container: 'rounded-md flex flex-col w-full',
                           }"
                         >
-                          <div v-if="Object.keys(item)[0] === 'loadProfile'">
+                          <template
+                            v-if="Object.keys(item)[0] === 'loadProfile'"
+                          >
                             <div
-                              class="flex justify-start align-middle pt-10 pl-4"
+                              class="flex flex-col gap-4 justify-start align-middle pt-10 w-full"
                             >
+                              <load-profile-competence
+                                @newCompetence="
+                                  attachCompetence(
+                                    $event,
+                                    item['loadProfile'].id
+                                  )
+                                "
+                              >
+                                <template #competence>
+                                  <template
+                                    v-for="competence in item['loadProfile']
+                                      .competences"
+                                    :key="competence.id"
+                                  >
+                                    <div
+                                      class="bg-white p-2 rounded flex justify-between border-2 border-gray-300"
+                                    >
+                                      <p
+                                        class="text-sm font-medium truncate pt-0.5"
+                                      >
+                                        {{ competence.name }}
+                                      </p>
+                                      <div class="pt-0.5 cursor-pointer">
+                                        <UIcon
+                                          name="i-heroicons-x-mark-20-solid "
+                                          @click="
+                                            isOpenDeleteCompetence = true;
+                                            loadProfileId =
+                                              item['loadProfile'].id;
+                                            competenceId = competence.id;
+                                          "
+                                        />
+                                      </div>
+                                    </div>
+                                  </template>
+                                </template>
+                              </load-profile-competence>
+
                               <div v-if="isLoadingCompetences">
                                 <cluster-list-skeleton />
                               </div>
 
-                              <competence-chart
+                              <PercentageBar
+                                v-else
+                                :items="loadItems(item['loadProfile'])"
+                              />
+
+                              <!-- <competence-chart
                                 v-else
                                 :base_load="item['loadProfile'].base_load"
                                 :comprehensive_load="
@@ -312,50 +382,12 @@ const editLoadProfileChange = (id, profileId) => {
                                 :organisation_load="
                                   item['loadProfile'].organisation_load
                                 "
-                              ></competence-chart>
-
-                              <div class="pl-2">
-                                <load-profile-competence
-                                  @newCompetence="
-                                    attachCompetence(
-                                      $event,
-                                      item['loadProfile'].id
-                                    )
-                                  "
-                                >
-                                  <template #competence>
-                                    <template
-                                      v-for="competence in item['loadProfile']
-                                        .competences"
-                                      :key="competence.id"
-                                    >
-                                      <div
-                                        class="bg-white p-2 rounded m-2 flex justify-between"
-                                      >
-                                        <p class="text-sm font-medium truncate">
-                                          {{ competence.name }}
-                                        </p>
-                                        <div>
-                                          <UIcon
-                                            name="i-heroicons-x-mark-20-solid"
-                                            @click="
-                                              isOpenDeleteCompetence = true;
-                                              loadProfileId =
-                                                item['loadProfile'].id;
-                                              competenceId = competence.id;
-                                            "
-                                          />
-                                        </div>
-                                      </div>
-                                    </template>
-                                  </template>
-                                </load-profile-competence>
-                              </div>
+                              ></competence-chart> -->
                             </div>
-                          </div>
+                          </template>
                           <div v-else class="border-t-2 mt-12 w-full">
                             <div
-                              class="flex flex-col justify-start align-middle pt-10 px-6 w-full"
+                              class="flex flex-col justify-start align-middle pt-10 w-full"
                             >
                               <UButton
                                 type="button"
@@ -482,7 +514,7 @@ const editLoadProfileChange = (id, profileId) => {
                                 </div>
                                 <div v-else>
                                   <div
-                                    class="flex justify-start align-middle py-2"
+                                    class="flex justify-center align-middle py-2"
                                   >
                                     <UIcon
                                       name="i-heroicons-exclamation-circle "

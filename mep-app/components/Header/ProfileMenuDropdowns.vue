@@ -94,7 +94,7 @@ const userAvatar = computed(() => {
 
 <template>
   <UDropdown
-    :items="activeDropdownItems"
+    :items="[]"
     mode="hover"
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-end' }"

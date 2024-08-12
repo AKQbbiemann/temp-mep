@@ -47,16 +47,20 @@ const schema = object({
   start_date: date().required(t("THIS_FIELD_IS_REQUIRED")),
   end_date: date().nullable(),
   reason: string().required(t("THIS_FIELD_IS_REQUIRED")),
-  fte_change: number(t("The field must be a number")).test(
-    "is-decimal",
-    "The amount should be a decimal with maximum two digits after comma",
-    (val) => {
-      if (val != undefined) {
-        return patternTwoDigisAfterComma.test(val);
+  fte_change: number(t("The field must be a number"))
+    .transform((_value, originalValue) =>
+      Number(originalValue.replace(/,/, "."))
+    )
+    .test(
+      "is-decimal",
+      "The amount should be a decimal with maximum two digits after comma",
+      (val) => {
+        if (val != undefined) {
+          return patternTwoDigisAfterComma.test(val);
+        }
+        return true;
       }
-      return true;
-    }
-  ),
+    ),
 });
 const state = reactive({
   start_date: format(new Date(), "yyyy-MM-dd"),
@@ -124,7 +128,6 @@ async function onSubmit(event) {
           <UInput
             v-model="state.fte_change"
             class="rounded-input"
-            type="number"
             step="0.01"
           />
         </UFormGroup>

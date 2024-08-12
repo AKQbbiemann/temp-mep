@@ -164,6 +164,7 @@ class Requirement extends Model
     protected $fillable = [
         'company_priority',
         'company_priority_description',
+        'created_at',
         'customer',
         'description',
         'end_date',
@@ -180,6 +181,7 @@ class Requirement extends Model
         'time_period_description',
         'title',
         'type',
+        'updated_at'
     ];
 
     /**

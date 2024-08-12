@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RequirementController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::get('/migration/competences', [AppController::class, 'migrateCompetences'
 Route::get('/migration/clusters', [AppController::class, 'migrateClusters'])->name('migrate.clusters');
 Route::get('/migration/profiles', [AppController::class, 'migrateProfiles'])->name('migrate.profiles');
 Route::get('/migration/requirements', [AppController::class, 'migrateRequirements'])->name('migrate.requirements');
+Route::get('/migration/customers', [AppController::class, 'migrateCustomers'])->name('migrate.customers');
 
 
 Route::group([
@@ -42,6 +44,10 @@ Route::group([
 // Login via Keycloak. Do not change.
 //Route::get('login', 'App\Http\Controllers\UserController@redirect')->name('login');
 //Route::get('/auth/callback', 'App\Http\Controllers\UserController@callback');
+
+
+// Customers
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
 
 // Cluster routes

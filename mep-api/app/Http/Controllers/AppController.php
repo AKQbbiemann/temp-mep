@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cluster;
 use App\Models\Competence;
+use App\Models\Customer;
 use App\Models\LoadProfile;
 use App\Models\Requirement;
 use Illuminate\Http\JsonResponse;
@@ -43,6 +44,38 @@ class AppController extends Controller
 
         return response()->json([
             'success' => true
+        ]);
+    }
+
+    public function migrateCustomers(): JsonResponse
+    {
+        $response = Http::get('https://mep.team41dev.oss.msvc.akqui.net/migration/customers?token=12345');
+
+        if(!$response->ok()) {
+            return response()->json([
+                'message' => 'MEP Prototype migration endpoint failure'
+            ], 500);
+        }
+
+        Customer::truncate();
+
+
+        $customers = $response->json()['data'];
+        $count = 0;
+        foreach($customers as $customer) {
+            if(isset($customer['shortcode']) && !empty($customer['shortcode'])) {
+                Customer::updateOrCreate([
+                    'name' => $customer['name'],
+                    'shortcode' => $customer['shortcode']
+                ]);
+                $count++;
+            }
+        }
+
+
+
+        return response()->json([
+            'message' => 'Success: '.$count.' customers migrated'
         ]);
     }
 
@@ -153,6 +186,8 @@ class AppController extends Controller
             ], 500);
         }
 
+        Requirement::truncate();
+
         $requirements = $response->json()['data'];
         $count = 0;
         $phaseCount = 0;
@@ -175,6 +210,8 @@ class AppController extends Controller
                 'type' => $requirement['type'],
                 'requester' => $requirement['requester'],
                 'customer' => $requirement['customer'],
+                'owner' => $requirement['owner'],
+                'creator' => $requirement['requester'],
                 'description' => $requirement['description'],
                 'infos' => $requirement['info_link'],
                 'probability' => $probability,
@@ -187,7 +224,9 @@ class AppController extends Controller
                 'company_priority' => $requirement['priority'],
                 'company_priority_description' => $requirement['priority_argumentation'],
                 'requested_priority' => $requirement['wish_priority'],
-                'requested_priority_description' => $requirement['wish_priority_argumentation'] ?? " "
+                'requested_priority_description' => $requirement['wish_priority_argumentation'] ?? " ",
+                'created_at' => $requirement['created_at'],
+                'updated_at' => $requirement['updated_at'] ?? null,
             ]);
             $count++;
             foreach($requirement['milestones'] as $milestone) {

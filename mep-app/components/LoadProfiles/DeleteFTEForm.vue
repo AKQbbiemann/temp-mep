@@ -6,14 +6,14 @@ const { t } = useI18n();
 const emit = defineEmits(["updateView", "isOpen"]);
 
 const props = defineProps({
-  employeeChangeId: Number,
+  changeId: Number,
 });
 
-console.log(props.emloyeeChangeId);
+console.log("changeID "+props.changeId);
 
 async function deleteChange() {
   try {
-    await clustersStore.deleteChange(parseInt(props.employeeChangeId));
+    await clustersStore.deleteChange(parseInt(props.changeId));
   } catch (e) {
     console.log(e);
   }

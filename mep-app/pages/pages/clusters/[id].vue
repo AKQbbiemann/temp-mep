@@ -548,7 +548,7 @@ const editLoadProfileChange = (id, profileId) => {
           </UModal>
           <UModal v-model="isOpenDeleteChange">
             <DeleteFTEForm
-              :changeId="changeId"
+              :employeeChangeId="changeId"
               @isOpen="isOpenDeleteChange = $event"
               @updateView="updateCompetences()"
             />

@@ -189,7 +189,7 @@ export const useClustersStore = defineStore("clusters", {
       const localeRoute = useLocaleRoute();
 
       try {
-        await useCustomFetch(`/clusters/profiles/changes/`, {
+        await useCustomFetch(`/clusters/profiles/changes`, {
           method: "DELETE",
           body: { profile_change_id },
         });

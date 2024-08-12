@@ -12,8 +12,8 @@ class ProfileChangeHelper
     public static function createOrUpdateProfileChange(CreateOrUpdateProfileChange $request, LoadProfile $profile): ProfileChange {
 
         // Update process
-        if($request->has('profile_change_id')) {
-            $profileChange = ProfileChange::findOrFail($request->get('profile_change_id'));
+        if($request->has('employee_change_id')) {
+            $profileChange = ProfileChange::findOrFail($request->get('employee_change_id'));
 
             //Startdatum wird aus der Zukunft nach Heute gesetzt
             if($request->get('start_date') == date("Y-m-d") &&
@@ -26,10 +26,13 @@ class ProfileChangeHelper
                     $request->has('comprehensive_load') &&
                     $request->has('base_load')) {
 
-                    $profile->local_load = $request->get('local_load');
-                    $profile->organisation_load = $request->get('organisation_load');
-                    $profile->base_load = $request->get('base_load');
-                    $profile->comprehensive = $request->get('comprehensive_load');
+                    if(!!$request->has('organisation_load') || !!$request->has('local_load') ||
+                        !!$request->has('comprehensive_load') || !!$request->has('base_load')) {
+                        $profile->local_load = $request->get('local_load');
+                        $profile->organisation_load = $request->get('organisation_load');
+                        $profile->base_load = $request->get('base_load');
+                        $profile->comprehensive = $request->get('comprehensive_load');
+                    }
                 }
 
                 // finally update the resource

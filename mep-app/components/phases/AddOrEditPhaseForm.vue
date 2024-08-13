@@ -73,7 +73,6 @@ async function getPhase() {
   try {
     isLoadingClusterParticipation.value = true;
     phase.value = toRaw(await requirementsStore.getPhase(id.idPhase))[0];
-    console.log(toRaw(await requirementsStore.getPhase(id.idPhase)));
     clusters.value = phase.value.cluster_participations;
     state.title = phase.value.title;
     state.start_date = format(parseISO(phase.value.start_date), "yyyy-MM-dd");
@@ -91,7 +90,6 @@ async function getPhase() {
   }
 }
 async function getDropdownLists() {
-  console.log(await requirementsStore.getDropdownLists());
   try {
     const [
       states,
@@ -151,7 +149,7 @@ async function getDropdownLists() {
 }
 
 function setSelectedCluster(id) {
-  console.log(id);
+  // console.log(id);
 }
 async function onSubmit(event) {
   if (schema.validateSync(state)) {
@@ -196,7 +194,6 @@ function updateCluster(cluster) {
   state.cluster_participation[clusterIndex.value] = cluster;
   Participations.value[clusterIndex.value] = cluster;
   isLoadingClusterParticipation.value = false;
-  console.log(cluster);
 }
 function removeClusterFromParticipation() {
   state.cluster_participation.splice(clusterIndex, 1);

@@ -9,8 +9,6 @@ const props = defineProps({
   changeId: Number,
 });
 
-console.log("changeID "+props.changeId);
-
 async function deleteChange() {
   try {
     await clustersStore.deleteChange(parseInt(props.changeId));

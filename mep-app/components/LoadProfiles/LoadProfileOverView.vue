@@ -99,10 +99,8 @@ onMounted(async () => {
 async function getLoadProfiles() {
   try {
     let data = toRaw(await loadProfileStore.getLoadProfiles());
-    console.log(data);
     list.value = data;
     items.value = data?.length || 0;
-    console.log(data);
   } catch (e) {
     console.log(e);
   }

@@ -43,11 +43,9 @@ async function getChartData() {
     }
     const endDate = format(addYears(new Date(), 1), "yyyy-MM-dd");
     values.push(Object.values(chartData.value)[keys.length - 1]);
-    console.log(values);
     labels.push(endDate);
     data.labels = labels;
     data.data = values;
-    console.log(labels);
 
     isLoading.value = false;
   } catch {}
@@ -58,8 +56,6 @@ const props = defineProps({
   clusterId: Number | String,
 });
 
-console.log(props.clusterId);
-console.log(props.profileId);
 let labels = [];
 
 // Use the generated labels in the chart

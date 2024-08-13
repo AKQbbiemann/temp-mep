@@ -4,10 +4,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const authStore = useAuthStore();
 
   if (!authStore.isLoggedIn) {
-    console.log("login");
     //navigateTo(await authStore.getLoginUrl(), { external: true });
-    console.log(await authStore.getLoginUrl());
-
     // return navigateTo("/login");
   }
 

@@ -280,5 +280,10 @@
   "EDIT_FTE_CHANGE_ERROR": "Fehler beim Bearbeiten der Veränderung",
   "ADD_FTE_CHANGE_ERROR": "Fehler beim Hinzufügen der Veränderung",
   "EDIT_FTE_CHANGE_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut",
-  "ADD_FTE_CHANGE_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut"
+  "ADD_FTE_CHANGE_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut",
+  "THE_FIELD_MUST_BE_A_NUMBER": "Das Feld muss eine Nummer sein",
+  "THE_AMOUNT_MUST_BE_A_DECIMAL_NUMBER_WITH_MAX_TWO_DECIMALS": "Der Betrag muss eine Dezimalzahl mit maximal zwei Dezimalstellen sein",
+  "MUST_BE_BETWEEN_0_AND_100_AND_SUM_OF_VALUES_SHOULD_BE_100": "Muss zwischen 0 und 100 liegen und die Summe der Werte sollte 100 sein",
+  "THE_VALUE_SHOULD_BE_GREATER_THAN_OR_EQUAL_TO_0": "Der Wert sollte größer oder gleich 0 sein",
+  "THE_VALUE_SHOULD_BE_LESS_THAN_OR_EQUAL_TO_100": "Der Wert sollte kleiner oder gleich 100 sein"
 }

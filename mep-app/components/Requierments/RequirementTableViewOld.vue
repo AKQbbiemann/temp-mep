@@ -149,9 +149,7 @@ onMounted(async () => {
   try {
     let data = toRaw(await requirementsStore.fill());
     list.value = data.data;
-    console.log(data);
     pageCount.value = data.per_page;
-    console.log(pageCount.value);
   } catch {}
 });
 

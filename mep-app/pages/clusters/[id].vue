@@ -15,6 +15,7 @@ const { t } = useI18n();
 
 const isOpenDeleteCluster = ref(false);
 const isOpenDeleteLoadProfile = ref(false);
+const isOpenAddLoadProfile = ref(false);
 const isOpenDeleteCompetence = ref(false);
 const isDetailsCluster = ref(true);
 const showLoadProfileDetails = ref(true);
@@ -228,11 +229,8 @@ const loadItems = (item) => {
                 type="button"
                 color="akq-green"
                 icon="i-heroicons-plus-circle"
-                class="justify-center text-base rounded mb-3"
-                @click="
-                  isDetailsProfile = !isDetailsProfile;
-                  editLoadProfile = false;
-                "
+                class="justify-center text-base rounded"
+                @click="isOpenAddLoadProfile = true"
               >
                 {{ $t("ADD_LOAD_PROFILE") }}
               </UButton>
@@ -255,18 +253,25 @@ const loadItems = (item) => {
               <section v-if="isDetailsProfile">
                 <UTabs
                   :items="tabLoadProfiles"
-                  orientation="vertical"
+                  orientation="horizontal"
                   :default-index="loadIndex"
                   @change="getLoadProfile"
                   :ui="{
-                    wrapper: 'pt-10   flex items-start flex-col gap-4',
+                    wrapper:
+                      'pt-10 flex items-start flex-col load-profile-tabs',
                     list: {
-                      base: '',
-                      width: 'w-48',
+                      base: 'relative inline-flex items-center justify-center flex-shrink-0 w-full ui-focus-visible:outline-0 ui-focus-visible:ring-2 ui-focus-visible:ring-primary-500 dark:ui-focus-visible:ring-primary-400 ui-not-focus-visible:outline-none focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors duration-200 ease-out !p-0',
+                      width: '',
                       background: 'bg-white dark:bg-gray-800 ',
                       tab: {
                         base: 'justify-start',
-                        active: 'text-akq-green dark:text-white shadow-none',
+                        active:
+                          'text-white dark:text-white shadow-none border-2 bg-akq-green border-akq-green dark:border-akq-green justify-center border-b-0',
+                        inactive:
+                          'text-gray-600 dark:text-gray-400 shadow-none border-2 border-gray-300 dark:border-gray-300 justify-center border-b-0',
+                        padding: 'px-3',
+                        height: 'h-10',
+                        rounded: 'rounded-b-none rounded-t-md',
                       },
                     },
                   }"
@@ -274,9 +279,9 @@ const loadItems = (item) => {
                   <template #item="{ item }">
                     <div class="sub-container-gray flex flex-col">
                       <div class="flex justify-between">
-                        <div class="text-akq-green text-xl">
-                          {{ item.name }}
-                        </div>
+                        <LoadProfileSearch
+                          @newCompetence="attachCompetence($event, item.id)"
+                        />
                         <div class="w-[70px] flex justify-between align-middle">
                           <UIcon
                             name="i-line-md-edit-twotone-full"
@@ -393,7 +398,7 @@ const loadItems = (item) => {
                                 type="button"
                                 color="akq-green"
                                 icon="i-heroicons-plus-circle"
-                                class="justify-center text-base rounded mb-3 break-words ml-2"
+                                class="justify-center text-base rounded mb-3 break-words"
                                 :ui="{
                                   link: 'break-words',
                                 }"
@@ -415,7 +420,7 @@ const loadItems = (item) => {
                               ></FullTimeEmployeesChart>
                               <div>
                                 <div v-if="item['fullTimeEmployees'].fte">
-                                  <div class="grid grid-cols-4 gap-1">
+                                  <div class="grid grid-cols-4 gap-1 mt-8">
                                     <div
                                       v-for="change in loadProfiles.find(
                                         (profile) =>
@@ -535,23 +540,24 @@ const loadItems = (item) => {
                 </UTabs>
               </section>
             </div>
-            <section v-if="!isDetailsProfile">
-              <LoadProfileForm
-                @backToOverview="isDetailsProfile = !isDetailsProfile"
-                @updateLoadProfiles="
-                  isDetailsProfile = !isDetailsProfile;
-                  updateCompetences();
-                "
-                :profileId="loadProfileId"
-                :isEditLoadProfile="editLoadProfile"
-                :clusterId="id.id"
-              />
-            </section>
           </template>
         </LoadProfileTemplate>
       </div>
       <template>
         <div>
+          <UModal v-model="isOpenAddLoadProfile">
+            <LoadProfileForm
+              @backToOverview="isOpenAddLoadProfile = false"
+              @updateLoadProfiles="
+                isOpenAddLoadProfile = false;
+                updateCompetences();
+              "
+              @isOpen="isOpenAddLoadProfile = $event"
+              :profileId="loadProfileId"
+              :isEditLoadProfile="editLoadProfile"
+              :clusterId="id.id"
+            />
+          </UModal>
           <UModal v-model="isOpenDeleteLoadProfile">
             <delete-load-profile-modal
               :loadProfileId="loadProfileId"

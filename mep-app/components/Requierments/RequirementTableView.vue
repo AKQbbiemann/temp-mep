@@ -148,7 +148,6 @@ async function getRequirements(querys) {
     list.value = data?.data;
     items.value = data?.total || 0;
     pageCount.value = data?.per_page;
-    console.log(data);
   } catch (e) {
     console.log(e);
   }
@@ -193,7 +192,6 @@ async function getDropdownLists() {
       priorityList.value.push({ key: "all", value: t("ALL") });
     }
     if (types) {
-      console.log(types);
       typesList.value = Object.entries(types).map((type) => {
         return {
           key: type[0],

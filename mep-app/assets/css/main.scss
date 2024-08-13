@@ -18,7 +18,7 @@ body {
 }
 
 .sub-container-gray {
-  @apply p-6 bg-zinc-100 dark:bg-gray-800 rounded shadow;
+  @apply p-6 bg-zinc-100 dark:bg-gray-800 rounded-b shadow border-2 border-akq-green;
 }
 .icon.icon-edit {
   @apply text-akq-green bg-transparent cursor-pointer;
@@ -82,4 +82,8 @@ body {
 
 .small-padding {
   @apply p-2 rounded;
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0 !important;
 }

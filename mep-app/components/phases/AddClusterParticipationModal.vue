@@ -104,7 +104,6 @@ async function getList() {
   try {
     isLoading.value = true;
     clustersList.value = Object.values(toRaw(await clustersStore.fill()));
-    console.log(clustersList.value);
   } catch (e) {
     console.log(e);
   } finally {

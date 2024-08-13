@@ -27,7 +27,7 @@ async function getChange() {
           props.employeeChangeId
         )
       );
-      state.fte_change = data.fte_change;
+      state.fte_change = data.fte_change.toLocaleString("de-DE");
       state.start_date = data.start_date;
       state.end_date = data.end_date;
       state.reason = data.reason;
@@ -35,7 +35,6 @@ async function getChange() {
       state.base_load = data.base_load;
       state.organisation_load = data.organisation_load;
       state.local_load = data.local_load;
-      console.log(data);
     } catch (e) {
       console.log(e);
     }
@@ -47,10 +46,14 @@ const schema = object({
   start_date: date().required(t("THIS_FIELD_IS_REQUIRED")),
   end_date: date().nullable(),
   reason: string().required(t("THIS_FIELD_IS_REQUIRED")),
-  fte_change: number(t("The field must be a number"))
-    .transform((_value, originalValue) =>
-      Number(originalValue.replace(/,/, "."))
-    )
+  fte_change: number(t("THE_FIELD_MUST_BE_A_NUMBER"))
+    .transform((_value, originalValue) => {
+      Number(
+        originalValue?.toString()?.includes(",")
+          ? originalValue?.toString()?.replace(",", ".")
+          : originalValue
+      );
+    })
     .test(
       "is-decimal",
       "The amount should be a decimal with maximum two digits after comma",
@@ -75,7 +78,6 @@ const state = reactive({
 onMounted(async () => {});
 
 async function onSubmit(event) {
-  console.log(props.employeeChangeId === "");
   if (schema.validateSync(state)) {
     try {
       await clustersStore.addOrEditFTEChanges(
@@ -187,7 +189,7 @@ async function onSubmit(event) {
         </UFormGroup>
       </UForm>
       <template #footer>
-        <div class="flex justify-start pt-10">
+        <div class="flex justify-start">
           <UButton
             type="button"
             color="gray"

@@ -28,6 +28,21 @@ onMounted(async () => {
   await getCustomers();
 });
 
+// watch states and when customer selects same customer set it to null
+// watch(
+//   () => state.customer,
+//   (newValue, oldValue) => {
+//     if (newValue === oldValue) {
+//       state.customer = null;
+//     }
+//   }
+// );
+
+// watch(state, (newVal, oldValue) => {
+//   console.log(newVal);
+//   console.log(oldValue);
+// });
+
 async function getDropdownLists() {
   const [
     states,
@@ -212,7 +227,13 @@ async function onSubmit(event) {
           <USelect
             v-model="state.customer"
             :options="customersList"
-            class="rounded-input"
+            class="rounded-input customer-select"
+          />
+          <UIcon
+            v-if="state.customer"
+            name="i-heroicons-x-mark-20-solid"
+            class="w-5 h-5 text-gray-600 absolute left-2 top-1.5 cursor-pointer"
+            @click="state.customer = null"
           />
         </UFormGroup>
 

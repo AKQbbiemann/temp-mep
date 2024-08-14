@@ -35,6 +35,7 @@ const FTEProfileId = ref();
 const employeeChangeId = ref();
 const changeId = ref();
 const tabIndex = ref();
+const todaysFTE = ref([]);
 
 onMounted(async () => {
   await updateData();
@@ -120,17 +121,26 @@ const editLoadProfileChange = (id, profileId) => {
   isOpenChangeFTE.value = true;
 };
 
+const todaysFTEShow = (id, value) => {
+  todaysFTE.value.push({ id, value });
+};
+
+// computed property for get todays FTE value from the array of todaysFTE values for the selected load profile
+const getTodaysFTE = (loadProfile) => {
+  return todaysFTE.value.find((item) => item.id === loadProfile.id)?.value;
+};
+
 const loadItems = (item) => {
   return [
+    {
+      label: "organisation_load",
+      percentage: item.organisation_load,
+      color: "#32A546",
+    },
     {
       label: "base_load",
       percentage: item.base_load,
       color: "#05806d",
-    },
-    {
-      label: "comprehensive_load",
-      percentage: item.comprehensive_load,
-      color: "#E7324C",
     },
     {
       label: "local_load",
@@ -138,9 +148,9 @@ const loadItems = (item) => {
       color: "#FFCC00",
     },
     {
-      label: "organisation_load",
-      percentage: item.organisation_load,
-      color: "#32A546",
+      label: "comprehensive_load",
+      percentage: item.comprehensive_load,
+      color: "#E7324C",
     },
   ];
 };
@@ -158,20 +168,20 @@ const loadItems = (item) => {
             <h1 class="text-akq-green text-3xl font-bold">
               {{ cluster ? cluster.name : "" }}
             </h1>
-            <div class="w-[70px] flex justify-between align-middle">
+            <div class="w-[70px] flex justify-end align-middle">
               <UIcon
                 name="i-line-md-edit-twotone-full"
                 class="w-6 h-6 icon-edit self-center"
                 dynamic
                 @click="editClusterView"
               />
-              <UDivider orientation="vertical" />
+              <!-- <UDivider orientation="vertical" />
               <UIcon
                 name="i-line-md-document-remove-twotone"
                 class="w-6 h-6 icon-delete self-center"
                 dynamic
                 @click="isOpenDeleteCluster = true"
-              />
+              /> -->
               <template>
                 <div>
                   <UModal v-model="isOpenDeleteCluster">
@@ -380,6 +390,14 @@ const loadItems = (item) => {
                                 :items="loadItems(item['loadProfile'])"
                               />
 
+                              <span class="text-sm pt-4">
+                                {{
+                                  $t("FTE_FOR_TODAY") +
+                                  ": " +
+                                  getTodaysFTE(item["loadProfile"])
+                                }}
+                              </span>
+
                               <!-- <competence-chart
                                 v-else
                                 :base_load="item['loadProfile'].base_load"
@@ -393,7 +411,7 @@ const loadItems = (item) => {
                               ></competence-chart> -->
                             </div>
                           </template>
-                          <div v-else class="border-t-2 mt-12 w-full">
+                          <div v-else class="border-t-2 mt-8 w-full">
                             <div
                               class="flex flex-col justify-start align-middle pt-10 w-full"
                             >
@@ -417,9 +435,16 @@ const loadItems = (item) => {
                                   $t("NEW_CHANGE_FTES")
                                 }}</span>
                               </UButton>
+
                               <FullTimeEmployeesChart
                                 :clusterId="id.id"
                                 :profileId="item['fullTimeEmployees'].profileId"
+                                @todaysFTE="
+                                  todaysFTEShow(
+                                    item['fullTimeEmployees'].profileId,
+                                    $event
+                                  )
+                                "
                               ></FullTimeEmployeesChart>
                               <div>
                                 <div v-if="item['fullTimeEmployees'].fte">

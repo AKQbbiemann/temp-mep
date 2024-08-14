@@ -22,9 +22,13 @@ import { addYears } from "date-fns";
 const clustersStore = useClustersStore();
 const chartData = ref();
 const isLoading = ref(false);
+
+const emit = defineEmits("todaysFTE");
+
 onMounted(async () => {
   await getChartData();
 });
+
 let keys = [];
 let values = [];
 async function getChartData() {
@@ -46,9 +50,12 @@ async function getChartData() {
     labels.push(endDate);
     data.labels = labels;
     data.data = values;
+    emit("todaysFTE", data.data[0]);
 
     isLoading.value = false;
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
 }
 const { t } = useI18n();
 const props = defineProps({

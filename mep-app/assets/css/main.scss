@@ -87,3 +87,7 @@ body {
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   margin-top: 0 !important;
 }
+
+.customer-select select {
+  @apply pl-10;
+}

@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <div class="border-akq-green border-l-4 p-2 px-4">
-    <span class="font-medium">{{ props.data.label }} </span>
-    <span> {{ props.data.data }}</span>
+    <span class="font-medium">{{ props.data.label }} </span><br />
+    <span class="text-sm"> {{ props.data.data }}</span>
   </div>
 </template>

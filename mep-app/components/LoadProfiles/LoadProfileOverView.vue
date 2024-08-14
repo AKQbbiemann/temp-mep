@@ -192,6 +192,14 @@ async function refreshData(pageNr) {
             </div>
             <div v-else-if="col.key === 'loads'">
               <div>
+                <span class="text-akq-green-ag font-semibold">
+                  {{ $t("ORGANISATION_LOAD") }} =
+                </span>
+                <span class="text-akq-green-ag"
+                  >{{ row["organisation_load"] }} %</span
+                >
+              </div>
+              <div>
                 <span class="text-akq-green font-semibold">
                   {{ $t("BASE_LOAD") }} =
                 </span>
@@ -203,14 +211,7 @@ async function refreshData(pageNr) {
                 </span>
                 <span class="text-akq-yellow">{{ row["local_load"] }} %</span>
               </div>
-              <div>
-                <span class="text-akq-green-ag font-semibold">
-                  {{ $t("ORGANISATION_LOAD") }} =
-                </span>
-                <span class="text-akq-green-ag"
-                  >{{ row["organisation_load"] }} %</span
-                >
-              </div>
+
               <div>
                 <span class="text-akq-red font-semibold">
                   {{ $t("COMPREHENSIVE_LOAD") }} =

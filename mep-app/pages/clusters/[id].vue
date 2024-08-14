@@ -230,7 +230,10 @@ const loadItems = (item) => {
                 color="akq-green"
                 icon="i-heroicons-plus-circle"
                 class="justify-center text-base rounded"
-                @click="isOpenAddLoadProfile = true"
+                @click="
+                  isOpenAddLoadProfile = true;
+                  editLoadProfile = false;
+                "
               >
                 {{ $t("ADD_LOAD_PROFILE") }}
               </UButton>
@@ -288,9 +291,9 @@ const loadItems = (item) => {
                             class="w-6 h-6 icon-edit self-center"
                             dynamic
                             @click="
-                              isDetailsProfile = !isDetailsProfile;
                               editLoadProfile = true;
                               loadProfileId = item.id;
+                              isOpenAddLoadProfile = true;
                             "
                           />
                           <UDivider orientation="vertical" />

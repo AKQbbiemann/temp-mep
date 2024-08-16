@@ -61,10 +61,6 @@ tabLoadProfiles.forEach((loadProfile) => {
   loadProfile.label = loadProfile.name;
 });
 
-let loadIndex = ref(0);
-function getLoadProfile(index) {
-  loadIndex.value = index;
-}
 async function editClusterView() {
   isDetailsCluster.value = !isDetailsCluster.value;
   showLoadProfileDetails.value = !showLoadProfileDetails.value;
@@ -245,54 +241,21 @@ const deleteLoadProfileFTEEvent = (event) => {
             <div v-if="isLoadingCompetences">
               <cluster-list-skeleton />
             </div>
-            <div v-else>
-              <section v-if="isDetailsProfile">
-                <UTabs
-                  :items="tabLoadProfiles"
-                  orientation="horizontal"
-                  :default-index="loadIndex"
-                  @change="getLoadProfile"
-                  :ui="{
-                    wrapper:
-                      'pt-10 flex items-start flex-col load-profile-tabs',
-                    list: {
-                      base: 'relative inline-flex items-center justify-center flex-shrink-0 w-full ui-focus-visible:outline-0 ui-focus-visible:ring-2 ui-focus-visible:ring-primary-500 dark:ui-focus-visible:ring-primary-400 ui-not-focus-visible:outline-none focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors duration-200 ease-out !p-0',
-                      width: '',
-                      background: 'bg-white dark:bg-gray-800 ',
-                      tab: {
-                        base: 'justify-start',
-                        active:
-                          'text-white dark:text-white shadow-none border-2 bg-akq-green border-akq-green dark:border-akq-green justify-center border-b-0',
-                        inactive:
-                          'text-gray-600 dark:text-gray-400 shadow-none border-2 border-gray-300 dark:border-gray-300 justify-center border-b-0',
-                        padding: 'px-3',
-                        height: 'h-10',
-                        rounded: 'rounded-b-none rounded-t-md',
-                      },
-                    },
-                  }"
-                >
-                  <template #item="{ item }">
-                    <LoadProfileTabItem
-                      :item="item"
-                      :id="id"
-                      :loadProfiles="loadProfiles"
-                      :isLoadingCompetences="isLoadingCompetences"
-                      @editLoadProfile="editLoadProfileEvent($event)"
-                      @deleteLoadProfile="deleteLoadProfileEvent($event)"
-                      @deleteLoadProfileCompetence="
-                        deleteLoadProfileCompetenceEvent($event)
-                      "
-                      @addLoadProfileFTE="addLoadProfileFTEEvent($event)"
-                      @editLoadProfileChange="
-                        editLoadProfileChangeEvent($event)
-                      "
-                      @deleteLoadProfileFTE="deleteLoadProfileFTEEvent($event)"
-                    />
-                  </template>
-                </UTabs>
-              </section>
-            </div>
+            <LoadProfileTabItem
+              v-else-if="isDetailsProfile"
+              :tabLoadProfiles="tabLoadProfiles"
+              :id="id"
+              :loadProfiles="loadProfiles"
+              :isLoadingCompetences="isLoadingCompetences"
+              @editLoadProfile="editLoadProfileEvent($event)"
+              @deleteLoadProfile="deleteLoadProfileEvent($event)"
+              @deleteLoadProfileCompetence="
+                deleteLoadProfileCompetenceEvent($event)
+              "
+              @addLoadProfileFTE="addLoadProfileFTEEvent($event)"
+              @editLoadProfileChange="editLoadProfileChangeEvent($event)"
+              @deleteLoadProfileFTE="deleteLoadProfileFTEEvent($event)"
+            />
           </template>
         </LoadProfileTemplate>
       </div>

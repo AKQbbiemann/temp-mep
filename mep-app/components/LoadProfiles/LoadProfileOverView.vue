@@ -186,12 +186,20 @@ async function refreshData(pageNr) {
               <span class="text-wrap break-words">{{ row[col.key].name }}</span>
             </div>
             <div v-else-if="col.key === 'competences'">
-              <div v-for="competence in row[col.key]" :key="competence.id">
-                <span class="text-wrap">{{ competence.name }} </span>
+              <div
+                v-for="competence in row[col.key]"
+                :key="competence.id"
+                class="mb-1"
+              >
+                <UBadge color="sky" variant="subtle"
+                  ><span class="text-wrap">{{ competence.name }} </span></UBadge
+                >
               </div>
             </div>
             <div v-else-if="col.key === 'loads'">
-              <div>
+              <div
+                class="rounded border-2 border-akq-green-ag px-2 py-1 w-min mb-1"
+              >
                 <span class="text-akq-green-ag font-semibold">
                   {{ $t("ORGANISATION_LOAD") }} =
                 </span>
@@ -200,25 +208,37 @@ async function refreshData(pageNr) {
                 >
               </div>
               <div>
-                <span class="text-akq-green font-semibold">
-                  {{ $t("BASE_LOAD") }} =
-                </span>
-                <span class="text-akq-green">{{ row["base_load"] }} %</span>
+                <div
+                  class="rounded border-2 border-akq-green px-2 py-1 w-min mb-1"
+                >
+                  <span class="text-akq-green font-semibold">
+                    {{ $t("BASE_LOAD") }} =
+                  </span>
+                  <span class="text-akq-green">{{ row["base_load"] }} %</span>
+                </div>
               </div>
               <div>
-                <span class="text-akq-yellow font-semibold">
-                  {{ $t("LOCAL_LOAD") }} =
-                </span>
-                <span class="text-akq-yellow">{{ row["local_load"] }} %</span>
+                <div
+                  class="rounded border-2 border-akq-yellow px-2 py-1 w-min mb-1"
+                >
+                  <span class="text-akq-yellow font-semibold">
+                    {{ $t("LOCAL_LOAD") }} =
+                  </span>
+                  <span class="text-akq-yellow">{{ row["local_load"] }} %</span>
+                </div>
               </div>
 
               <div>
-                <span class="text-akq-red font-semibold">
-                  {{ $t("COMPREHENSIVE_LOAD") }} =
-                </span>
-                <span class="text-akq-red"
-                  >{{ row["comprehensive_load"] }} %</span
+                <div
+                  class="rounded border-2 border-akq-red px-2 py-1 w-min mb-1"
                 >
+                  <span class="text-akq-red font-semibold">
+                    {{ $t("COMPREHENSIVE_LOAD") }} =
+                  </span>
+                  <span class="text-akq-red"
+                    >{{ row["comprehensive_load"] }} %</span
+                  >
+                </div>
               </div>
             </div>
             <div v-else-if="col.key === 'ftes'">

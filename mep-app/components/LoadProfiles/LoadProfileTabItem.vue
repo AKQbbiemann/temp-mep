@@ -54,7 +54,9 @@ function getLoadProfile(index) {
 
 // computed property for get todays FTE value from the array of todaysFTE values for the selected load profile
 const getTodaysFTE = (loadProfile) => {
-  return todaysFTE.value.find((item) => item.id === loadProfile.id)?.value;
+  return todaysFTE.value
+    .find((item) => item.id === loadProfile.id)
+    ?.value?.toLocaleString("de-DE");
 };
 
 async function attachCompetence(competenceId, loadProfileId) {

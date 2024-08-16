@@ -13,7 +13,6 @@ const skillsStore = useSkillsStore();
 const loadProfileStore = useloadProfileStore();
 const { t } = useI18n();
 
-const isOpenDeleteCluster = ref(false);
 const isOpenDeleteLoadProfile = ref(false);
 const isOpenAddLoadProfile = ref(false);
 const isOpenDeleteCompetence = ref(false);
@@ -29,17 +28,17 @@ const cluster = ref();
 const loadProfiles = ref();
 const isOpenChangeFTE = ref(false);
 const isOpenDeleteChange = ref(false);
-let tabLoadProfiles = [];
 const competenceId = ref();
 const FTEProfileId = ref();
-const employeeChangeId = ref();
 const changeId = ref();
-const tabIndex = ref();
+const list = ref();
+
+let tabLoadProfiles = [];
 
 onMounted(async () => {
   await updateData();
 });
-const list = ref();
+
 function updateCluster(id) {
   cluster.load_profiles[0].competence.push(id);
 }
@@ -133,6 +132,11 @@ const deleteLoadProfileFTEEvent = (event) => {
   changeId.value = event;
   isOpenDeleteChange.value = true;
 };
+
+const openAddLoadProfileEvent = () => {
+  isOpenAddLoadProfile.value = true;
+  editLoadProfile.value = false;
+};
 </script>
 
 <template>
@@ -143,98 +147,31 @@ const deleteLoadProfileFTEEvent = (event) => {
     <div v-else>
       <ClusterDetails>
         <template #header>
-          <div v-if="isDetailsCluster" class="flex justify-between ps-2">
-            <h1 class="text-akq-green text-3xl font-bold">
-              {{ cluster ? cluster.name : "" }}
-            </h1>
-            <div class="w-[70px] flex justify-end align-middle">
-              <UIcon
-                name="i-line-md-edit-twotone-full"
-                class="w-6 h-6 icon-edit self-center"
-                dynamic
-                @click="editClusterView"
-              />
-              <!-- <UDivider orientation="vertical" />
-              <UIcon
-                name="i-line-md-document-remove-twotone"
-                class="w-6 h-6 icon-delete self-center"
-                dynamic
-                @click="isOpenDeleteCluster = true"
-              /> -->
-              <template>
-                <div>
-                  <UModal v-model="isOpenDeleteCluster">
-                    <delete-cluster-modal
-                      :clusterId="id"
-                      @isOpen="isOpenDeleteCluster = $event"
-                    />
-                  </UModal>
-                </div>
-              </template>
-            </div>
-          </div>
-          <div v-if="!isDetailsCluster">
-            <h1 class="pt-3 text-larg text-akq-green">
-              {{ $t("EDIT_CLUSTER") }}
-            </h1>
-          </div>
+          <ClusterDetailHeader
+            :isDetailsCluster="isDetailsCluster"
+            :cluster="cluster"
+            :id="id"
+            @editClusterView="editClusterView"
+          />
         </template>
         <template #content>
-          <section v-if="isDetailsCluster" class="mt-10 ps-2">
-            <ClusterBox
-              v-if="cluster && cluster.description"
-              :data="{
-                data: cluster ? cluster.description : '',
-                label: $t('DESCRIPTION'),
-              }"
-            />
-          </section>
-          <section v-if="!isDetailsCluster">
-            <AddOrEditCluster
-              :clusterId="id.id"
-              @closeDetailsView="editClusterView"
-            >
-              <template #cancelBtn>
-                <UButton
-                  type="button"
-                  color="gray"
-                  class="justify-center text-base rounded mb-3 me-3"
-                  @click="editClusterView"
-                >
-                  {{ $t("CANCEL") }}
-                </UButton>
-              </template>
-            </AddOrEditCluster>
-          </section>
+          <ClusterDetailContent
+            :isDetailsCluster="isDetailsCluster"
+            :cluster="cluster"
+            :id="id"
+            @editClusterView="editClusterView"
+          />
         </template>
       </ClusterDetails>
       <div v-if="showLoadProfileDetails">
         <UDivider class="my-10" />
         <LoadProfileTemplate>
           <template #header>
-            <section class="ps-2 flex justify-between" v-if="isDetailsProfile">
-              <ClusterBox :data="{ data: '', label: $t('LOAD_PROFILE') }" />
-              <UButton
-                type="button"
-                color="akq-green"
-                icon="i-heroicons-plus-circle"
-                class="justify-center text-base rounded"
-                @click="
-                  isOpenAddLoadProfile = true;
-                  editLoadProfile = false;
-                "
-              >
-                {{ $t("ADD_LOAD_PROFILE") }}
-              </UButton>
-            </section>
-            <section v-if="!isDetailsProfile">
-              <h1 v-if="editLoadProfile" class="text-akq-green text-3xl ps-2">
-                {{ $t("EDIT_LOAD_PROFILE") }}
-              </h1>
-              <h1 v-else class="text-akq-green text-3xl ps-2">
-                {{ $t("NEW_LOAD_PROFILE") }}
-              </h1>
-            </section>
+            <LoadProfileTemplateHeader
+              :isDetailsProfile="isDetailsProfile"
+              :editLoadProfile="editLoadProfile"
+              @openAddLoadProfile="openAddLoadProfileEvent"
+            />
           </template>
 
           <template #content>

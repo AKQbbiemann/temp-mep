@@ -2,37 +2,50 @@
 import { object, string } from "yup";
 import { reactive } from "vue";
 import { toRaw } from "vue";
-import { useClustersStore } from "@/stores/clusters";
+import { useSkillsStore } from "@/stores/skills";
+import { useRouter } from "vue-router";
 
-const id = useRoute().params;
-const emit = defineEmits(["closeDetailsView", "isOpen"]);
-const clustersStore = useClustersStore();
+const router = useRouter();
+const skillsStore = useSkillsStore();
 const { t } = useI18n();
+const localeRoute = useLocaleRoute();
 
-const isLoading = ref(false);
-const cluster = ref();
-
-const props = defineProps({
-  type: String,
+definePageMeta({
+  layout: "clusters",
 });
 
+const props = defineProps({
+  id: String,
+});
+const emit = defineEmits(["isOpen"]);
+
+const schema = object({
+  name: string().required(t("THIS_FIELD_IS_REQUIRED")),
+});
+
+const state = reactive({
+  name: undefined,
+});
+
+const loading = ref(false);
+const competence = ref();
+const isLoading = ref(false);
+
 onMounted(async () => {
-  if (id.id && props.type !== "add") {
-    await getCluster();
+  if (props.id) {
+    await getCompetenc();
   } else {
-    cluster.value = {
+    competence.value = {
       name: "",
-      description: "",
     };
   }
 });
 
-async function getCluster() {
+async function getCompetenc() {
   try {
     isLoading.value = true;
-    cluster.value = toRaw(await clustersStore.getCluster(id.id));
-    state.name = cluster.value.name;
-    state.description = cluster.value.description;
+    competence.value = toRaw(await skillsStore.getCompetenc(props.id));
+    state.name = competence.value.name;
   } catch (e) {
     console.log(e);
   } finally {
@@ -40,29 +53,18 @@ async function getCluster() {
   }
 }
 
-const schema = object({
-  name: string().required(t("THIS_FIELD_IS_REQUIRED")),
-  description: string().optional(),
-});
-
-const state = reactive({
-  name: undefined,
-  description: undefined,
-});
-
 async function onSubmit(event) {
   if (schema.validateSync(state)) {
     try {
-      isLoading.value = true;
-      await clustersStore.addOrEdit(
+      loading.value = true;
+      await skillsStore.addOrEdit(
         state.name,
-        state.description,
-        id.id && props.type !== "add" ? parseInt(id.id) : ""
+        props.id ? parseInt(props.id) : ""
       );
     } catch (e) {
       console.log(e);
     } finally {
-      isLoading.value = false;
+      loading.value = false;
       emit("isOpen", false);
     }
   }
@@ -70,7 +72,7 @@ async function onSubmit(event) {
 </script>
 
 <template>
-  <div class="">
+  <div>
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UCard
         :ui="{
@@ -84,11 +86,7 @@ async function onSubmit(event) {
             <h3
               class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
             >
-              {{
-                id.id && props.type !== "add"
-                  ? $t("EDIT_CLUSTER")
-                  : $t("NEW_CLUSTER")
-              }}
+              {{ props.id ? $t("EDIT_COMPETENCE") : $t("NEW_COMPETENCE") }}
             </h3>
             <UButton
               color="gray"
@@ -99,14 +97,11 @@ async function onSubmit(event) {
           </div>
         </template>
 
-        <UFormGroup label="Name" name="name">
-          <UInput v-model="state.name" class="rounded-input" />
-        </UFormGroup>
-
-        <UFormGroup label="Beschreibung" name="description">
-          <UInput v-model="state.description" class="rounded-input" />
-        </UFormGroup>
-
+        <div class="">
+          <UFormGroup label="Name" name="name">
+            <UInput v-model="state.name" class="rounded-input" />
+          </UFormGroup>
+        </div>
         <template #footer>
           <div class="flex justify-start">
             <UButton
@@ -120,6 +115,7 @@ async function onSubmit(event) {
             <UButton
               type="submit"
               color="akq-green"
+              :disabled="loading"
               class="text-base rounded mb-3"
             >
               {{ $t("SAVE") }}

@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n();
+
 const items = [
   {
     key: "clusters",
@@ -8,7 +10,7 @@ const items = [
   },
   {
     key: "skills",
-    label: "Competencies",
+    label: t("COMPETENCIES"),
     description:
       "Change your password here. After saving, you'll be logged out.",
   },
@@ -28,10 +30,17 @@ function onChange(index) {
   <div class="sub-nav">
     <UTabs
       :items="items"
-      class="w-full sub-nav"
+      class="w-full"
       @change="onChange"
       :ui="{
-        list: { shadow: 'shadow-lg', rounded: 'rounded', padding: 'px-2' },
+        wrapper: 'px-0 py-0 !h-0',
+        list: {
+          base: 'px-0 py-0 !h-0',
+          rounded: 'rounded',
+          tab: {
+            active: '  border-akq-green border-2',
+          },
+        },
       }"
     >
       <template #default="{ item, selected }">

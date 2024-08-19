@@ -9,7 +9,10 @@ const { t } = useI18n();
 const localeRoute = useLocaleRoute();
 
 const isLoading = ref(false);
+const isOpenAddCluster = ref(false);
+
 const lists = computed(() => clustersStore.getClustersList);
+
 watch(lists, (newValue, oldValue) => {
   lists.value = clustersStore.getClustersList;
 });
@@ -44,19 +47,27 @@ async function getList() {
         block
         :trailing="false"
         :label="$t('ADD_CLUSTER')"
-        @click="navigateTo(localeRoute('/clusters/new').fullPath)"
+        @click="isOpenAddCluster = true"
       />
 
       <ul>
-        <li v-for="item in lists" :key="item.id" class="py-3 cluster-list">
-          <nuxt-link
-            :to="localeRoute(`/clusters/${item.id}`).fullPath"
-            class="text-base wrap"
+        <nuxt-link
+          v-for="item in lists"
+          :key="item.id"
+          :to="localeRoute(`/clusters/${item.id}`).fullPath"
+          class="text-base wrap"
+        >
+          <li
+            class="py-3 cluster-list border-b-2 border-akq-gray-200 cursor-pointer"
           >
             {{ item.name }}
-          </nuxt-link>
-        </li>
+          </li>
+        </nuxt-link>
       </ul>
+
+      <UModal v-model="isOpenAddCluster">
+        <AddOrEditCluster type="add" @isOpen="isOpenAddCluster = $event" />
+      </UModal>
     </div>
   </div>
 </template>

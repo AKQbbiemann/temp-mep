@@ -253,25 +253,23 @@ async function refreshData(pageNr) {
           </template>
         </UTable>
       </div>
-      <div>
-        <UPagination
-          :activeButton="{
-            color: 'akq-green',
-          }"
-          class="pt-2"
-          v-model="page"
-          :page-count="pageCount"
-          :total="items"
-          :ui="{
-            default: {
-              activeButton: {
-                color: 'akq-green',
-              },
+      <UPagination
+        :activeButton="{
+          color: 'akq-green',
+        }"
+        class="py-2 flex justify-center"
+        v-model="page"
+        :page-count="pageCount"
+        :total="items"
+        :ui="{
+          default: {
+            activeButton: {
+              color: 'akq-green',
             },
-          }"
-          @click="updateFTEs = true"
-        />
-      </div>
+          },
+        }"
+        @click="updateFTEs = true"
+      />
     </UCard>
   </div>
 </template>

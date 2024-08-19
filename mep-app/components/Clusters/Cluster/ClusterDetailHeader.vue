@@ -8,6 +8,7 @@ const props = defineProps({
 const emit = defineEmits(["editClusterView"]);
 
 const isOpenDeleteCluster = ref(false);
+const isOpenEditCluster = ref(false);
 </script>
 
 <template>
@@ -21,7 +22,7 @@ const isOpenDeleteCluster = ref(false);
           name="i-line-md-edit-twotone-full"
           class="w-6 h-6 icon-edit self-center"
           dynamic
-          @click="emit('editClusterView')"
+          @click="isOpenEditCluster = true"
         />
         <!-- <UDivider orientation="vertical" />
               <UIcon
@@ -47,5 +48,8 @@ const isOpenDeleteCluster = ref(false);
         {{ $t("EDIT_CLUSTER") }}
       </h1>
     </div>
+    <UModal v-model="isOpenEditCluster">
+      <AddOrEditCluster @isOpen="isOpenEditCluster = $event" />
+    </UModal>
   </div>
 </template>

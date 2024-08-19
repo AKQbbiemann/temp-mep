@@ -17,6 +17,9 @@ const columns = [
 const list = computed(() => skillsStore.getskillsList);
 const isLoading = ref(false);
 const totalPages = ref(0);
+const isOpenAddSkill = ref(false);
+const selectedSkill = ref(null);
+
 watch(list, (newValue, oldValue) => {
   list.value = skillsStore.getskillsList;
 });
@@ -81,8 +84,11 @@ const pageCount = 10;
       class="w-full justify-center text-base rounded mb-3"
       rounded
       :trailing="false"
-      :label="$t('ADD_competence')"
-      @click="navigateTo(localeRoute('/clusters/skills/new').fullPath)"
+      :label="$t('ADD_COMPETENCE')"
+      @click="
+        isOpenAddSkill = true;
+        selectedSkill = null;
+      "
     />
     <div>
       <div
@@ -100,11 +106,12 @@ const pageCount = 10;
         :columns="columns"
         class="skill-list"
         @select="
-          navigateTo(localeRoute(`/clusters/skills/${$event.id}`).fullPath)
+          selectedSkill = $event.id;
+          isOpenAddSkill = true;
         "
       />
       <div
-        class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+        class="flex justify-center px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
       >
         <UPagination
           :activeButton="{
@@ -116,5 +123,9 @@ const pageCount = 10;
         />
       </div>
     </div>
+
+    <UModal v-model="isOpenAddSkill">
+      <AddOrEditSkills :id="selectedSkill" @isOpen="isOpenAddSkill = $event" />
+    </UModal>
   </div>
 </template>

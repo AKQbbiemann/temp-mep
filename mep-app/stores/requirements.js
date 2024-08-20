@@ -1,8 +1,33 @@
 import { defineStore } from "pinia";
 import useCustomFetch from "@/composables/useCustomFetch";
 
+const initialState = () => {
+  return {
+    requirements: {
+      title: "",
+      type: "",
+      owner: "",
+      creator: "",
+      customer: "",
+      description: "",
+      infos: "",
+      probability: "",
+      start_date: "",
+      end_date: "",
+      start_date_is_strict: "",
+      end_date_is_strict: "",
+      time_period_description: "",
+      state: "",
+      company_priority: "",
+      company_priority_description: "",
+      requested_priority: "",
+      requested_priority_description: "",
+    },
+  };
+};
+
 export const useRequirementsStore = defineStore("requirements", {
-  state: () => ({}),
+  state: () => initialState(),
 
   getters: {},
   actions: {
@@ -89,7 +114,6 @@ export const useRequirementsStore = defineStore("requirements", {
     },
 
     async getCustomers() {
-      console.log("getCustomersdssadasdas");
       const appToast = useAppToast();
       try {
         const { data } = await useCustomFetch("/customers");
@@ -109,7 +133,7 @@ export const useRequirementsStore = defineStore("requirements", {
       const body = {
         title: requestData.title,
         type: requestData.type,
-        owner: requestData.owner,
+        owner: requestData.owner.toString(),
         creator: requestData.creator,
         customer: requestData.customer,
         description: requestData.description,
@@ -136,6 +160,9 @@ export const useRequirementsStore = defineStore("requirements", {
           method: "POST",
           body: body,
         });
+
+        this.$reset();
+
         appToast.toastSuccess({
           title: requirement_id
             ? "EDIT_REQUIREMENT_SUCCESS"
@@ -144,14 +171,7 @@ export const useRequirementsStore = defineStore("requirements", {
             ? "EDIT_REQUIREMENT_SUCCESS_DESCRIPTION"
             : "ADD_REQUIREMENT_SUCCESS_DESCRIPTION",
         });
-        navigateTo(
-          localeRoute(
-            "/requirements".concat(
-              "/",
-              requirement_id ? requirement_id : data.id
-            )
-          )
-        );
+        navigateTo(localeRoute("/requirements").fullPath);
       } catch (e) {
         appToast.toastError({
           title: requirement_id

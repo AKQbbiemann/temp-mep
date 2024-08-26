@@ -116,6 +116,7 @@ async function onSubmit(event) {
             class="pt-3"
             v-model="state.start_date_is_strict"
             :label="$t('START_DATE_IS_STRICT')"
+            color="akq-green"
           />
         </UFormGroup>
       </div>
@@ -128,6 +129,7 @@ async function onSubmit(event) {
             class="pt-3"
             v-model="state.end_date_is_strict"
             :label="$t('END_DATE_IS_STRICT')"
+            color="akq-green"
           />
         </UFormGroup>
       </div>

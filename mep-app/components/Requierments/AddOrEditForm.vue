@@ -7,7 +7,10 @@ const requirementsStore = useRequirementsStore();
 
 const props = defineProps({
   data: Object,
+  currentStep: Number,
 });
+
+const emit = defineEmits(["step"]);
 
 const step = ref(1);
 const typesList = ref();
@@ -63,24 +66,30 @@ async function getDropdownLists() {
     });
   }
 }
+
+// change ste
+function changeStep(event) {
+  step.value = event;
+  emit("step", event);
+}
 </script>
 
 <template>
   <div class="">
-    <div v-if="step == 1">
+    <div v-if="currentStep === 1 || step === 1">
       <AddOrEditFormStep1
         :typesList="typesList"
         :data="props.data"
-        @step="step = $event"
+        @step="changeStep($event)"
       />
     </div>
-    <div v-if="step == 2">
+    <div v-else-if="currentStep === 2 || step === 2">
       <AddOrEditFormStep2
         :data="props.data"
         :probabilitiesList="probabilitiesList"
         :statesList="statesList"
         :priority="priority"
-        @step="step = $event"
+        @step="changeStep($event)"
       />
     </div>
   </div>

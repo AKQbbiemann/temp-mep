@@ -1,5 +1,8 @@
 <script setup>
 const props = defineProps({ isEdit: Boolean, step: Number });
+
+const emit = defineEmits(["step"]);
+
 const progress = computed(() => props.step);
 
 watch(progress, (newValue, oldValue) => {
@@ -15,11 +18,17 @@ watch(progress, (newValue, oldValue) => {
     <div class="mt-10">
       <div class="flex items-center">
         <div
-          class="w-[50px] h-[50px] bg-akq-green-50 rounded-full flex items-center justify-center"
+          class="w-[50px] h-[50px] bg-akq-green rounded-full flex items-center justify-center"
         >
-          <span class="font-bold text-akq-green">1</span>
+          <span class="font-bold text-white">1</span>
         </div>
-        <div class="ms-3">{{ $t("REQUEST_DETAILS_AND_DESCRIPTION") }}</div>
+        <div
+          class="ms-3 cursor-pointer"
+          @click="emit('step', 1)"
+          :class="progress > 1 ? 'text-akq-green' : '  '"
+        >
+          {{ $t("REQUEST_DETAILS_AND_DESCRIPTION") }}
+        </div>
       </div>
       <div
         class="ms-[22px] w-[6px] h-20"
@@ -28,9 +37,9 @@ watch(progress, (newValue, oldValue) => {
       <div class="flex items-center">
         <div
           class="w-[50px] h-[50px] rounded-full flex items-center justify-center"
-          :class="progress > 1 ? 'bg-akq-green-50' : ' bg-gray-200 '"
+          :class="progress > 1 ? 'bg-akq-green' : ' bg-gray-200 '"
         >
-          <span class="font-bold" :class="progress > 1 ? 'text-akq-green' : ''"
+          <span class="font-bold" :class="progress > 1 ? 'text-white' : ''"
             >2</span
           >
         </div>

@@ -9,10 +9,10 @@ function changeStep(event) {
 <template>
   <div class="flex m-4">
     <div class="sub-container w-[425px] min-h-screen me-4">
-      <AddEditProgressSteps :step="step" />
+      <AddEditProgressSteps :step="step" @step="changeStep($event)" />
     </div>
     <div class="sub-container grow">
-      <AddOrEditForm @step="changeStep($event)">
+      <AddOrEditForm :currentStep="step" @step="changeStep($event)">
         <template #cancelBtn>
           <UButton
             type="button"

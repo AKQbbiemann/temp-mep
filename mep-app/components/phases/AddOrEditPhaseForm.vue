@@ -234,6 +234,7 @@ function removeClusterFromParticipation() {
               class="pt-3"
               v-model="state.dates_are_strict"
               :label="$t('DATES_ARE_STRICT')"
+              color="akq-green"
             />
           </UFormGroup>
 

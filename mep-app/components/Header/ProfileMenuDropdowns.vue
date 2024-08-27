@@ -86,9 +86,7 @@ const isUser = computed(() => authStore.userRole === "user");
 const isAdmin = computed(() => authStore.userRole === "admin");
 
 const userAvatar = computed(() => {
-  return user.value?.avatar
-    ? runtimeConfig.public.apiBaseUrl + user.value?.avatar
-    : "https://cdn-icons-png.flaticon.com/128/847/847969.png";
+  return runtimeConfig.public.apiBaseUrl + user.value?.avatar;
 });
 </script>
 
@@ -99,7 +97,13 @@ const userAvatar = computed(() => {
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-end' }"
   >
-    <UAvatar :src="userAvatar" />
+    <UAvatar v-if="user?.avatar" :src="userAvatar" />
+    <IconUser
+      v-else
+      class="fill-current text-akq-green"
+      width="38"
+      height="38"
+    />
 
     <template #account="{ item }">
       <div v-if="user" class="text-left">

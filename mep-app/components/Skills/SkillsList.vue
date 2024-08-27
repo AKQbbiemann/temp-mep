@@ -13,12 +13,18 @@ const columns = [
   {
     key: "name",
   },
+  {
+    key: "actions",
+  },
 ];
 const list = computed(() => skillsStore.getskillsList);
 const isLoading = ref(false);
 const totalPages = ref(0);
 const isOpenAddSkill = ref(false);
 const selectedSkill = ref(null);
+const loadingDelete = ref(false);
+const isOpenDeleteCompetence = ref(false);
+const competenceId = ref(null);
 
 watch(list, (newValue, oldValue) => {
   list.value = skillsStore.getskillsList;
@@ -109,7 +115,25 @@ const pageCount = 10;
           selectedSkill = $event.id;
           isOpenAddSkill = true;
         "
-      />
+      >
+        <template #actions-data="{ row }">
+          <div class="flex justify-end">
+            <UButton
+              icon="i-heroicons-trash-20-solid"
+              size="2xs"
+              color="red"
+              variant="ghost"
+              :ui="{ rounded: 'rounded-full' }"
+              square
+              :disabled="loadingDelete"
+              @click.stop="
+                isOpenDeleteCompetence = true;
+                competenceId = row.id;
+              "
+            />
+          </div>
+        </template>
+      </UTable>
       <div
         class="flex justify-center px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
       >
@@ -126,6 +150,14 @@ const pageCount = 10;
 
     <UModal v-model="isOpenAddSkill">
       <AddOrEditSkills :id="selectedSkill" @isOpen="isOpenAddSkill = $event" />
+    </UModal>
+
+    <UModal v-model="isOpenDeleteCompetence">
+      <DeleteCompetenceModal
+        :competenceId="competenceId"
+        @isOpen="isOpenDeleteCompetence = $event"
+        @deleteCompetence="getList"
+      />
     </UModal>
   </div>
 </template>

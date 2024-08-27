@@ -1,38 +1,40 @@
 <script setup>
-import { useloadProfileStore } from "@/stores/loadProfile";
-
-const loadProfileStore = useloadProfileStore();
+import { useSkillsStore } from "@/stores/skills";
+const skillsStore = useSkillsStore();
 const { t } = useI18n();
 
-const emit = defineEmits(["updateLoadProfiles", "isOpen"]);
-
 const props = defineProps({
-  loadProfileId: Number,
-  clusterId: Number,
+  competenceId: Number,
 });
 
-async function deleteLoadprofile() {
+const loadingDelete = ref(false);
+
+const emit = defineEmits(["deleteCompetence", "isOpen"]);
+
+async function OnSubmit() {
   try {
-    await loadProfileStore.deleteLoadProfile(parseInt(props.loadProfileId));
+    loadingDelete.value = true;
+    await skillsStore.deleteCompetence(props.competenceId);
+    emit("deleteCompetence");
   } catch (e) {
     console.log(e);
+  } finally {
+    loadingDelete.value = false;
   }
 }
+
+//deleteCluster
 </script>
 <template>
   <UCard
-    :ui="{
-      ring: '',
-      divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-      rounded: 'rounded',
-    }"
+    :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }"
   >
     <template #header>
       <div class="flex items-center justify-between">
         <h3
           class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
         >
-          {{ $t("DELETE_LOAD_PROFILE") }}
+          {{ $t("DELETE_COMPETENCE") }}
         </h3>
         <UButton
           color="gray"
@@ -42,7 +44,7 @@ async function deleteLoadprofile() {
         />
       </div>
     </template>
-    <p>{{ $t("DELETE_LOAD_PROFILE_MSG") }}</p>
+    <p>{{ $t("DELETE_COMPETENCE_MSG") }}</p>
     <template #footer>
       <div class="flex justify-start">
         <UButton
@@ -61,10 +63,11 @@ async function deleteLoadprofile() {
           rounded
           trailing
           :label="$t('DELETE')"
+          :loading="loadingDelete"
+          :disabled="loadingDelete"
           @click="
             $emit('isOpen', false);
-            deleteLoadprofile();
-            $emit('updateLoadProfiles');
+            OnSubmit();
           "
         />
       </div>

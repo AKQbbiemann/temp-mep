@@ -468,7 +468,7 @@ async function getDropdownLists() {
         </template>
       </UTable>
     </div>
-    <div>
+    <div class="flex justify-center pb-2">
       <UPagination
         class="pt-2"
         v-model="page"

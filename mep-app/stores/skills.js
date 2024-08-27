@@ -75,5 +75,24 @@ export const useSkillsStore = defineStore("skills", {
         });
       }
     },
+    async deleteCompetence(id) {
+      const appToast = useAppToast();
+      try {
+        await useCustomFetch(`competences?competence_id=${id}`, {
+          method: "DELETE",
+        });
+        appToast.toastSuccess({
+          title: "DELETE_COMPETENCE_SUCCESS",
+          description: "DELETE_COMPETENCE_SUCCESS_DESCRIPTION",
+        });
+        // this.fill();
+      } catch (e) {
+        console.log(e);
+        appToast.toastError({
+          title: "DELETE_COMPETENCE_ERROR",
+          description: "DELETE_COMPETENCE_ERROR_DESCRIPTION",
+        });
+      }
+    },
   },
 });

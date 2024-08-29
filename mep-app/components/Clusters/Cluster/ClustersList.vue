@@ -58,9 +58,21 @@ async function getList() {
           class="text-base wrap"
         >
           <li
-            class="py-3 cluster-list border-b-2 border-akq-gray-200 cursor-pointer"
+            class="py-4 cluster-list cursor-pointer text-gray-500 text-sm flex justify-between"
           >
-            {{ item.name }}
+            <span>
+              {{ item.name }}
+            </span>
+            <UButton
+              icon="i-heroicons-trash-20-solid"
+              size="2xs"
+              color="red"
+              variant="ghost"
+              :ui="{ rounded: 'rounded-full' }"
+              square
+              :disabled="true"
+              @click.stop="true"
+            />
           </li>
         </nuxt-link>
       </ul>

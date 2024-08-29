@@ -42,7 +42,7 @@ async function deleteChange() {
     </template>
     <p>{{ $t("DELETE_CHANGE_MSG") }}</p>
     <template #footer>
-      <div class="flex justify-end">
+      <div class="flex justify-start">
         <UButton
           type="button"
           color="gray"
@@ -54,7 +54,7 @@ async function deleteChange() {
         />
         <UButton
           type="button"
-          color="akq-green"
+          color="red"
           class="justify-center text-base rounded mb-3"
           rounded
           trailing

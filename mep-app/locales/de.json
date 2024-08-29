@@ -201,6 +201,8 @@
   "EDIT_REQUIREMENT_SUCCESS_DESCRIPTION": "Die Anforderung wurde erfolgreich bearbeitet",
   "EDIT_REQUIREMENT_ERROR": "Fehler beim Bearbeiten der Anforderung",
   "EDIT_REQUIREMENT_ERROR_DESCRIPTION": "Ooops, Etwas ist schiefgelaufen, bitte versuche es erneut",
+  "DELETE_REQUIREMENT": "Anforderung löschen",
+  "DELETE_REQUIREMENT_MSG": "Bist du sicher, dass du die Anforderung löschen möchtest ?",
   "DELETE_REQUIREMENT_SUCCESS": "Erfolgreich gelöscht",
   "DELETE_REQUIREMENT_SUCCESS_DESCRIPTION": "Die Anforderung wurde erfolgreich gelöscht",
   "DELETE_REQUIREMENT_ERROR": "Fehler beim Löschen der Anforderung",

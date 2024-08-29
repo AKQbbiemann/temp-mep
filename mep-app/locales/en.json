@@ -149,5 +149,11 @@
   "MUST_BE_BETWEEN_0_AND_100_AND_SUM_OF_VALUES_SHOULD_BE_100": "Must be between 0 and 100 and sum of values should be 100",
   "THE_VALUE_SHOULD_BE_GREATER_THAN_OR_EQUAL_TO_0": "The value should be greater than or equal to 0",
   "THE_VALUE_SHOULD_BE_LESS_THAN_OR_EQUAL_TO_100": "The value should be less than or equal to 100",
-  "FTE_FOR_TODAY": "FTE for today"
+  "FTE_FOR_TODAY": "FTE for today",
+  "DELETE_REQUIREMENT": "Delete Requirement",
+  "DELETE_REQUIREMENT_MSG": "Are you sure you want to delete the Requirement ?",
+  "DELETE_REQUIREMENT_SUCCESS": "Delete Requirement Success",
+  "DELETE_REQUIREMENT_SUCCESS_DESCRIPTION": "Requirement was deleted successfully",
+  "DELETE_REQUIREMENT_ERROR": "Error deleting Requirement",
+  "DELETE_REQUIREMENT_ERROR_DESCRIPTION": "Error deleting Requirement"
 }

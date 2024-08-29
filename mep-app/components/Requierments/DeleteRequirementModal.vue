@@ -40,7 +40,7 @@ async function OnSubmit() {
     </template>
     <p>{{ $t("DELETE_REQUIREMENT_MSG") }}</p>
     <template #footer>
-      <div class="flex justify-end">
+      <div class="flex justify-start">
         <UButton
           type="button"
           color="gray"
@@ -52,7 +52,7 @@ async function OnSubmit() {
         />
         <UButton
           type="button"
-          color="akq-green"
+          color="red"
           class="justify-center text-base rounded mb-3"
           rounded
           trailing

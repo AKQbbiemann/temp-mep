@@ -115,6 +115,11 @@ const pageCount = 10;
           selectedSkill = $event.id;
           isOpenAddSkill = true;
         "
+        :ui="{
+          td: {
+            padding: 'py-4 px-0',
+          },
+        }"
       >
         <template #actions-data="{ row }">
           <div class="flex justify-end">

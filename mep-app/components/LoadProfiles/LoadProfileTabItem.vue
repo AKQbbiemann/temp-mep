@@ -186,7 +186,11 @@ const editLoadProfileChange = (id, profileId) => {
                   <cluster-list-skeleton />
                 </div>
 
-                <PercentageBar v-else :items="loadItems(item['loadProfile'])" />
+                <PercentageBar
+                  v-else
+                  :items="loadItems(item['loadProfile'])"
+                  height="130px"
+                />
 
                 <span class="text-sm pt-4">
                   {{

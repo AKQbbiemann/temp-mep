@@ -140,6 +140,28 @@ async function refreshData(pageNr) {
               class="rounded-input"
               :placeholder="t('SEARCH')"
             ></UInput>
+            <div class="flex gap-2">
+              <div class="rounded border-2 border-akq-green-ag px-2 py-0.5">
+                <span class="text-akq-green-ag font-semibold">
+                  {{ $t("ORGANISATION_LOAD") }}
+                </span>
+              </div>
+              <div class="rounded border-2 border-akq-green px-2 py-0.5">
+                <span class="text-akq-green font-semibold">
+                  {{ $t("BASE_LOAD") }}
+                </span>
+              </div>
+              <div class="rounded border-2 border-akq-yellow px-2 py-0.5">
+                <span class="text-akq-yellow font-semibold">
+                  {{ $t("LOCAL_LOAD") }}
+                </span>
+              </div>
+              <div class="rounded border-2 border-akq-red px-2 py-0.5">
+                <span class="text-akq-red font-semibold">
+                  {{ $t("COMPREHENSIVE_LOAD") }}
+                </span>
+              </div>
+            </div>
             <USelectMenu
               v-model="selectedColumns"
               :options="columns"
@@ -197,49 +219,7 @@ async function refreshData(pageNr) {
               </div>
             </div>
             <div v-else-if="col.key === 'loads'">
-              <div
-                class="rounded border-2 border-akq-green-ag px-2 py-1 w-min mb-1"
-              >
-                <span class="text-akq-green-ag font-semibold">
-                  {{ $t("ORGANISATION_LOAD") }} =
-                </span>
-                <span class="text-akq-green-ag"
-                  >{{ row["organisation_load"] }} %</span
-                >
-              </div>
-              <div>
-                <div
-                  class="rounded border-2 border-akq-green px-2 py-1 w-min mb-1"
-                >
-                  <span class="text-akq-green font-semibold">
-                    {{ $t("BASE_LOAD") }} =
-                  </span>
-                  <span class="text-akq-green">{{ row["base_load"] }} %</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="rounded border-2 border-akq-yellow px-2 py-1 w-min mb-1"
-                >
-                  <span class="text-akq-yellow font-semibold">
-                    {{ $t("LOCAL_LOAD") }} =
-                  </span>
-                  <span class="text-akq-yellow">{{ row["local_load"] }} %</span>
-                </div>
-              </div>
-
-              <div>
-                <div
-                  class="rounded border-2 border-akq-red px-2 py-1 w-min mb-1"
-                >
-                  <span class="text-akq-red font-semibold">
-                    {{ $t("COMPREHENSIVE_LOAD") }} =
-                  </span>
-                  <span class="text-akq-red"
-                    >{{ row["comprehensive_load"] }} %</span
-                  >
-                </div>
-              </div>
+              <LoadProfileLoadItem :row="row" />
             </div>
             <div v-else-if="col.key === 'ftes'">
               <div>{{ row["full_time_employees"] }}</div>

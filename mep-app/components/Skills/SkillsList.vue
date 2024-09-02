@@ -119,6 +119,9 @@ const pageCount = 10;
           td: {
             padding: 'py-4 px-0',
           },
+          tr: {
+            base: 'hover:bg-white dark:hover:bg-black',
+          },
         }"
       >
         <template #actions-data="{ row }">

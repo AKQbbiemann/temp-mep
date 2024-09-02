@@ -189,7 +189,7 @@ const editLoadProfileChange = (id, profileId) => {
                 <PercentageBar
                   v-else
                   :items="loadItems(item['loadProfile'])"
-                  height="130px"
+                  height="130"
                 />
 
                 <span class="text-sm pt-4">

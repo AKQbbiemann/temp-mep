@@ -1,29 +1,34 @@
-<script>
-export default {
-  props: {
-    items: {
-      type: Array,
-      required: true,
-      validator(items) {
-        // Ensure the sum of percentages is 100
-        const total = items.reduce((sum, item) => sum + item.percentage, 0);
-        return total === 100;
-      },
-    },
-    height: {
-      type: String,
-      default: "130px",
-    },
-    showPercentage: {
-      type: Boolean,
-      default: true,
-    },
-    showTitle: {
-      type: Boolean,
-      default: true,
+<script setup>
+// define emits
+const emit = defineEmits(["mouseover", "mouseleave"]);
+
+const props = defineProps({
+  items: {
+    type: Array,
+    required: true,
+    validator(items) {
+      // Ensure the sum of percentages is 100
+      const total = items.reduce((sum, item) => sum + item.percentage, 0);
+      return total === 100;
     },
   },
-};
+  height: {
+    type: String,
+    default: "130",
+  },
+  showPercentage: {
+    type: Boolean,
+    default: true,
+  },
+  showTitle: {
+    type: Boolean,
+    default: true,
+  },
+  hoverLoad: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>
 
 <template>
@@ -35,12 +40,17 @@ export default {
       :style="{
         width: item.percentage + '%',
         backgroundColor: item.color,
-        height: height,
+        height: height + 'px',
+        transition: 'height 0.5s',
+        'box-shadow':
+          hoverLoad === item.label ? '0px 0px 10px ' + item.color : 'none',
       }"
       :class="{
         'rounded-l': index === 0,
         'rounded-r': index === items.length - 1,
       }"
+      @mouseover="$emit('mouseover', item.label)"
+      @mouseleave="$emit('mouseleave')"
     >
       <!-- <UTooltip
         :text="$t(item.label.toUpperCase()) + '(' + item.percentage + '%)'"

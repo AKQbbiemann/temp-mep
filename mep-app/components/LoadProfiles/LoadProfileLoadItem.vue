@@ -5,6 +5,8 @@ const props = defineProps({
   row: Object,
 });
 
+const hoverLoad = ref("");
+
 const getProgressbar = (items) => {
   return [
     {
@@ -42,78 +44,89 @@ const getProgressbar = (items) => {
           comprehensive_load: row['comprehensive_load'],
         })
       "
-      height="30px"
+      height="30"
       :showPercentage="false"
       :showTitle="false"
+      :hoverLoad="hoverLoad"
+      @mouseover="hoverLoad = $event"
+      @mouseleave="hoverLoad = ''"
     />
     <div class="flex justify-between">
-      <div
-        class="rounded border-2 border-akq-green-ag px-2 py-1 w-min mb-1 cursor-pointer"
+      <UTooltip
+        :text="$t('ORGANISATION_LOAD')"
+        :popper="{
+          placement: 'bottom',
+          offsetDistance: 4,
+        }"
+        :ui="{
+          rounded: 'rounded-md ',
+          color: 'text-white',
+          background: 'bg-akq-green-ag',
+        }"
       >
-        <UTooltip
-          :text="$t('ORGANISATION_LOAD')"
-          :popper="{
-            placement: 'bottom',
-            offsetDistance: 16,
-          }"
-          :ui="{
-            rounded: 'rounded-md ',
-            color: 'text-white',
-            background: 'bg-akq-green-ag',
-          }"
+        <div
+          class="rounded border-2 border-akq-green-ag px-2 py-1 w-min mb-1 cursor-pointer"
+          @mouseover="hoverLoad = 'organisation_load'"
+          @mouseleave="hoverLoad = ''"
         >
           <span class="text-akq-green-ag"
             >{{ row["organisation_load"] }} %</span
           >
-        </UTooltip>
-      </div>
-      <div
-        class="rounded border-2 border-akq-green px-2 py-1 w-min mb-1 cursor-pointer"
+        </div>
+      </UTooltip>
+      <UTooltip
+        :text="$t('BASE_LOAD')"
+        :popper="{ placement: 'bottom', offsetDistance: 4 }"
+        :ui="{
+          rounded: 'rounded-md ',
+          color: 'text-white',
+          background: 'bg-akq-green',
+        }"
       >
-        <UTooltip
-          :text="$t('BASE_LOAD')"
-          :popper="{ placement: 'bottom', offsetDistance: 16 }"
-          :ui="{
-            rounded: 'rounded-md ',
-            color: 'text-white',
-            background: 'bg-akq-green',
-          }"
+        <div
+          class="rounded border-2 border-akq-green px-2 py-1 w-min mb-1 cursor-pointer"
+          @mouseover="hoverLoad = 'base_load'"
+          @mouseleave="hoverLoad = ''"
         >
           <span class="text-akq-green">{{ row["base_load"] }} %</span>
-        </UTooltip>
-      </div>
+        </div>
+      </UTooltip>
 
-      <div
-        class="rounded border-2 border-akq-yellow px-2 py-1 w-min mb-1 cursor-pointer"
+      <UTooltip
+        :text="$t('LOCAL_LOAD')"
+        :popper="{ placement: 'bottom', offsetDistance: 4 }"
+        :ui="{
+          rounded: 'rounded-md ',
+          color: 'text-white',
+          background: 'bg-akq-yellow',
+        }"
       >
-        <UTooltip
-          :text="$t('LOCAL_LOAD')"
-          :popper="{ placement: 'bottom', offsetDistance: 16 }"
-          :ui="{
-            rounded: 'rounded-md ',
-            color: 'text-white',
-            background: 'bg-akq-yellow',
-          }"
+        <div
+          class="rounded border-2 border-akq-yellow px-2 py-1 w-min mb-1 cursor-pointer"
+          @mouseover="hoverLoad = 'local_load'"
+          @mouseleave="hoverLoad = ''"
         >
           <span class="text-akq-yellow">{{ row["local_load"] }} %</span>
-        </UTooltip>
-      </div>
+        </div>
+      </UTooltip>
 
-      <div
-        class="rounded border-2 border-akq-red px-2 py-1 w-min mb-1 cursor-pointer"
+      <UTooltip
+        :text="$t('ORGANISATION_LOAD')"
+        :popper="{ placement: 'bottom', offsetDistance: 4 }"
+        :ui="{
+          rounded: 'rounded-md ',
+          color: 'text-white',
+          background: 'bg-akq-red',
+        }"
       >
-        <UTooltip
-          :text="$t('ORGANISATION_LOAD')"
-          :popper="{ placement: 'bottom', offsetDistance: 16 }"
-          :ui="{
-            rounded: 'rounded-md ',
-            color: 'text-white',
-            background: 'bg-akq-red',
-          }"
+        <div
+          class="rounded border-2 border-akq-red px-2 py-1 w-min mb-1 cursor-pointer"
+          @mouseover="hoverLoad = 'comprehensive_load'"
+          @mouseleave="hoverLoad = ''"
         >
           <span class="text-akq-red"> {{ row["comprehensive_load"] }} % </span>
-        </UTooltip>
-      </div>
+        </div>
+      </UTooltip>
     </div>
   </div>
 </template>

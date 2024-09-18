@@ -12,7 +12,7 @@ defineProps({
   <div>
     <USkeleton class="h-full w-full" v-if="loading" />
     <div v-else>
-      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg">
+      <div class="dashboard-box p-6 bg-white dark:bg-gray-800 rounded-lg">
         <div class="flex items-center" :class="!lastbox ? 'border-r-2 ' : ''">
           <div class="flex items-center">
             <UIcon

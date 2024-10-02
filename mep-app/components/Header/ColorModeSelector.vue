@@ -1,4 +1,7 @@
 <script setup>
+import { ref, computed } from "vue";
+import { useColorMode } from "@vueuse/core";
+
 const showNextModelLabel = ref(false);
 const colorMode = useColorMode();
 const modes = ["system", "light", "dark"];

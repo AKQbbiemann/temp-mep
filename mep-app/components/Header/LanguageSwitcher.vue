@@ -1,5 +1,8 @@
 <script setup>
-const { locale, setLocale } = useI18n();
+import { useI18n } from "vue-i18n";
+import { ref, onMounted, watch } from "vue";
+
+const { locale } = useI18n();
 
 const lang = ref("en");
 
@@ -13,7 +16,7 @@ onMounted(() => {
 });
 
 watch(lang, (newVal) => {
-  setLocale(newVal);
+  locale.value = newVal; // Update the locale
 });
 </script>
 

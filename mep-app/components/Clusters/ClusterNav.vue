@@ -1,5 +1,9 @@
 <script setup>
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+
 const { t } = useI18n();
+const router = useRouter();
 
 const items = [
   {
@@ -19,9 +23,9 @@ const items = [
 function onChange(index) {
   const item = items[index];
   if (item.key === "skills") {
-    navigateTo("/clusters/skills");
+    router.push("/clusters/skills");
   } else if (item.key === "clusters") {
-    navigateTo("/clusters");
+    router.push("/clusters");
   }
 }
 </script>

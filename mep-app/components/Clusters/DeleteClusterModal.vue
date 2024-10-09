@@ -1,5 +1,7 @@
 <script setup>
+import { useI18n } from "vue-i18n";
 import { useClustersStore } from "@/stores/clusters";
+
 const clustersStore = useClustersStore();
 const { t } = useI18n();
 
@@ -9,7 +11,7 @@ const props = defineProps({
 
 async function OnSubmit() {
   try {
-    await clustersStore.deleteCluster(props.clusterId.id);
+    await clustersStore.deleteCluster(props.clusterId);
   } catch (e) {
     console.log(e);
   }
@@ -56,8 +58,8 @@ async function OnSubmit() {
           trailing
           :label="$t('DELETE')"
           @click="
-            $emit('isOpen', false);
             OnSubmit();
+            $emit('isOpen', false);
           "
         />
       </div>

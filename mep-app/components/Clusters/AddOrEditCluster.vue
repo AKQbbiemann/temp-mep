@@ -1,4 +1,7 @@
 <script setup>
+import { useI18n } from "vue-i18n";
+import { defineProps, defineEmits, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 import { object, string } from "yup";
 import { reactive } from "vue";
 import { toRaw } from "vue";
@@ -24,6 +27,8 @@ onMounted(async () => {
       name: "",
       description: "",
     };
+    state.name = "";
+    state.description = "";
   }
 });
 

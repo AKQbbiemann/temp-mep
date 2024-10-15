@@ -1,8 +1,10 @@
 <script setup>
+import { useI18n } from "vue-i18n";
 import { ref, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
+const { t } = useI18n();
 
 /* const isAuthenticated = computed(() => !!authStore.token); */
 const isAuthenticated = true;

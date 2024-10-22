@@ -1,4 +1,7 @@
 <script setup>
+import { useI18n } from "vue-i18n";
+import { defineProps, defineEmits, onMounted, ref, computed, watch } from "vue";
+
 import { reactive } from "vue";
 import { toRaw } from "vue";
 import { useClustersStore } from "@/stores/clusters";
@@ -6,7 +9,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const clustersStore = useClustersStore();
 const { t } = useI18n();
-const localeRoute = useLocaleRoute();
 
 const isLoading = ref(false);
 const isOpenAddCluster = ref(false);
@@ -31,6 +33,10 @@ async function getList() {
     isLoading.value = false;
   }
 }
+
+function getClusterPath(clusterId) {
+  return `/clusters/${clusterId}`; // Build the path manually
+}
 </script>
 <template>
   <div class="mt-10">
@@ -54,7 +60,7 @@ async function getList() {
         <nuxt-link
           v-for="item in lists"
           :key="item.id"
-          :to="localeRoute(`/clusters/${item.id}`).fullPath"
+          :to="getClusterPath(item.id)"
           class="text-base wrap"
         >
           <li

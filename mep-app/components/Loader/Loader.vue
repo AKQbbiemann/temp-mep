@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="spinner-wrapper">
     <div class="spinner">

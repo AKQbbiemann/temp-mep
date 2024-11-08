@@ -1,7 +1,12 @@
 <script setup>
-let route = useRoute();
+import { useRoute, useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { getSidebarMenu } from "@/composables/useSidebarMenu";
 
-onMounted(async () => {
+let route = useRoute();
+let router = useRouter();
+
+onMounted(() => {
   route = useRoute();
 });
 
@@ -11,13 +16,15 @@ const getMenu = () => {
     return rest;
   });
 };
+
+const logoLink = router.push('/');
 </script>
 
 <template>
   <div class="min-h-screen aside relative">
     <div class="logo-container">
-      <img src="~/public/logo.png" alt="Akquinet Logo" class="logo-icon" />
-      <NuxtLink class="full-logo" :to="localePath('/')"><AkqLogo /></NuxtLink>
+      <img src="@/public/logo.png" alt="Akquinet Logo" class="logo-icon" />
+      <NuxtLink class="full-logo" :to="logoLink"><AkqLogo /></NuxtLink>
     </div>
     <aside class="flex flex-col aside justify-between w-[100px]">
       <div class="template-aside flex justify-center">

@@ -1,4 +1,4 @@
+.env
 .IDEA
 /vendor
 storage/api-docs
-.env
